@@ -1,0 +1,133 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    /* background-image:url("https://wallpapercave.com/wp/wp2832101.jpg"); */
+    background-image: url(https://wallpapercave.com/wp/wp5559316.jpg);
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    display:flex;
+    flex-direction:column;
+}
+
+/* Logo Top Left */
+.container{
+    position:absolute;
+    margin-right: 1000px;
+    top:20px;
+    left:20px;
+}
+/* .logo{
+    animation: slide 2s infinite alternate;
+}
+
+@keyframes slide{
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(100px);
+    }
+} */
+
+.logo{
+    text-align:left;
+    
+}
+
+.logo img{
+    width:100px;
+    margin-left:60px; /* move right */
+
+}
+.logo img{
+    width:111px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-10px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+.logo h1{
+    color:white;
+    font-size:38px;
+    /* font-family:'Times New Roman', Times, serif; */
+    margin-top:10px;
+}
+
+.logo h1 span {
+    color: #ffff00;
+}
+
+/* Main Content Center */
+.container2{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items: end;
+}
+
+#content{
+    text-align:center;
+}
+
+#textContent{
+    color:white;
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:30px;
+}
+
+#textContent span{
+    color:yellow;
+    font-style:italic;
+}
+
+/* Button */
+.start-btn{
+    width:220px;
+    height:60px;
+    border:none;
+    border-radius:30px;
+    background:#e3a300;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.start-btn:hover{
+    background:#ffbf00;
+    transform:scale(1.05);
+}
+
+.start-btn a{
+    text-decoration:none;
+    color:black;
+    display:block;
+    line-height:60px;
+}
+
+/* Footer Bottom */
+.footer{
+    text-align:center;
+    color:white;
+    padding:15px;
+    font-size:14px;
+    background:rgba(0,0,0,0.5);
+}

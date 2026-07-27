@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYMFIT Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">
+            <img src="./photo/photo1.png" alt="GYMF Logo">
+            <h2>NextGen <span>NutriFit</span></h2>
+        </div>
+
+        <!-- Added an ID to the form -->
+        <form class="login-form" id="loginForm">
+            <!-- Added name attributes to inputs -->
+            <div class="input-box">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" name="email" placeholder="Email id" required>
+            </div>
+
+            <div class="input-box">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <div class="buttons">
+                <a href="forgotpage.html" class="forgot">Forgot Password?</a>
+                <button type="submit">Login</button>
+            </div>
+
+            <div class="register-link">
+                <p>If you haven't an account? <a href="registerpage.html">Register</a></p>
+            </div>
+        </form>
+
+        <div class="footer">Terms Of Use | Privacy Policy</div>
+    </div>
+
+<!-- <script>
+    // This script sends your credentials to Node.js to be validated
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch('/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        alert(result.message);
+        if (result.success) {
+            // Your user logged in! You can redirect them to a dashboard here
+            alert("Welcome to the gym dashboard portal!");
+        }
+    });
+</script> -->
+
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch('/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            // This line instantly sends the user to your home page!
+            window.location.href = 'homepage.html'; 
+        } else {
+            // Show the error message (like "Invalid password") if login fails
+            alert(result.message);
+        }
+    });
+</script>
+
+</body>
+</html>

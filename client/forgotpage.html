@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Gym - Reset Password</title>
+    <link rel="stylesheet" href="forget.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">
+            <img src="./photo/photo1.png" alt="GYMF Logo">
+            <h2>NextGen <span>NutriFit</span></h2>
+        </div>
+
+        <h3>Reset Password</h3>
+
+        <!-- STEP 1: REQUEST OTP FORM -->
+        <form id="requestOtpForm">
+            <div class="input-box">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="emailInput" name="email" placeholder="Enter Registered Email" required>
+            </div>
+            <div class="buttons">
+                <button type="submit">SEND CODE</button>
+            </div>
+        </form>
+
+        <!-- STEP 2: VERIFY OTP & RESET PASSWORD FORM -->
+        <form id="verifyOtpForm" style="display: none; margin-top: 20px;">
+            <p style="font-size: 0.85rem; color: #888; margin-bottom: 5px;">
+                Enter the 6-digit code was sent to your Gmail.
+            </p>
+            
+            <!-- LIVE COUNTDOWN CLOCK ELEMENT -->
+            <div id="countdownTimer" style="font-size: 1.3rem; font-weight: 700; color:rgb(140 0 0); margin-bottom: 15px; font-family: monospace;">
+                05:00
+            </div>
+
+            <div class="input-box">
+                <i class="fa-solid fa-shield-halved"></i>
+                <input type="text" id="otpInput" placeholder="Enter 6-Digit OTP" maxlength="6" required>
+            </div>
+            <div class="input-box">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="newPasswordInput" placeholder="Enter New Password" required>
+            </div>
+            <div class="buttons">
+                <button type="submit" id="verifyBtn">VERIFY & RESET</button>
+            </div>
+        </form>
+
+        <div class="register-link">
+            <p>Remembered your password? <a href="loginpage.html">Login</a></p>
+        </div>
+    </div>
+
+<script>
+    let savedEmail = "";
+    let timerInterval; // Holds our countdown function memory block
+
+    // Function to run the 5-Minute Countdown Timer
+    function startTimer(durationInSeconds) {
+        // Clear any old leftover timers first
+        clearInterval(timerInterval);
+        
+        let timer = durationInSeconds;
+        const display = document.getElementById('countdownTimer');
+        const verifyBtn = document.getElementById('verifyBtn');
+
+        // Reset display color and enable button in case of a retry
+        display.style.color = '#ffff00';
+        verifyBtn.disabled = false;
+
+        timerInterval = setInterval(() => {
+            let minutes = Math.floor(timer / 60);
+            let seconds = timer % 60;
+
+            // Formats numbers so single digits show a leading zero (e.g., 04:09 instead of 4:9)
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            // If timer runs out
+            if (--timer < 0) {
+                clearInterval(timerInterval);
+                display.textContent = "EXPIRED";
+                display.style.color = "#e74c3c"; // Turns text bright red
+                verifyBtn.disabled = true; // Locks the submit action button
+                alert("Your verification code has expired! Please click back and request a new one.");
+            }
+        }, 1000);
+    }
+
+    // Handler for Step 1: Requesting OTP
+    document.getElementById('requestOtpForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        savedEmail = document.getElementById('emailInput').value;
+
+        try {
+            const response = await fetch('/auth/forgot-password/request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: savedEmail })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+
+            if (result.success) {
+                // Hide email form, reveal OTP confirmation form
+                document.getElementById('requestOtpForm').style.display = 'none';
+                document.getElementById('verifyOtpForm').style.display = 'block';
+                
+                // Fire off our 5-Minute Countdown clock (5 minutes * 60 seconds = 300 seconds)
+                startTimer(300);
+            }
+        } catch (error) {
+            alert("Could not reach backend server.");
+        }
+    });
+
+    // Handler for Step 2: Submitting OTP and password
+    document.getElementById('verifyOtpForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const otp = document.getElementById('otpInput').value;
+        const newPassword = document.getElementById('newPasswordInput').value;
+
+        try {
+            const response = await fetch('/auth/forgot-password/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: savedEmail, otp, newPassword })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+
+            if (result.success) {
+                clearInterval(timerInterval); // Stop the clock tracking completely
+                window.location.href = 'loginpage.html';
+            }
+        } catch (error) {
+            alert("Could not reach backend server.");
+        }
+    });
+</script>
+</body>
+</html>

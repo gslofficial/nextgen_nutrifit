@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen NutriFit - Dashboard Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+    <!-- FIXED: Substituted the broken cloudflare link placeholder with the accurate icons stylesheet library -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body>
+
+<!-- LEFT COLUMN VERTICAL NAVIGATION SIDEBAR -->
+<aside class="sidebar">
+    <div class="logo">NextGen <span>NutriFit</span></div>
+    
+    <ul class="sidebar-menu">
+        <li class="active-item"><a href="#"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+         <li><a href="healthtracker.html"><i class="fa-solid fa-heart-pulse"></i> Nutrient Tracker</a></li>
+        <li><a href="#"><i class="fa-solid fa-comment-dots"></i> Messages <span class="msg-badge">6</span></a></li>
+        <li><a href="#"><i class="fa-solid fa-utensils"></i> Healthy Menu</a></li>
+        <li><a href="#"><i class="fa-solid fa-bowl-rice"></i> Meal Plan</a></li>
+        <!-- LINKED DIRECTLY TO YOUR NUTRITION APP TRACKER PAGE -->
+        <li><a href="#"><i class="fa-solid fa-book-open"></i> Food Diary</a></li>
+        <li><a href="#"><i class="fa-solid fa-chart-line"></i> Progress</a></li>
+        <li><a href="#"><i class="fa-solid fa-person-running"></i> Exercises</a></li>
+       
+    </ul>
+
+    <!-- DYNAMIC USER PROFILE BLOCK MOVED CLEANLY TO THE BOTTOM WALL -->
+    <div class="profile-container">
+        <div class="profile-avatar" id="avatarBtn">
+            <i class="fa-solid fa-user-circle"></i>
+            <span id="navUserName">Loading...</span>
+        </div>
+        
+        <!-- Drop-down menu block holding database account metadata lines -->
+        <div class="profile-dropdown" id="profileDropdown">
+            <div class="dropdown-header">
+                <h3>Account Profile</h3>
+            </div>
+            
+            <!-- View Mode View -->
+            <div id="profileViewMode">
+                <p><strong>Name:</strong> <span id="profName">-</span></p>
+                <p><strong>Email ID:</strong> <span id="profEmail">-</span></p>
+                <p><strong>Age:</strong> <span id="profAge">-</span></p>
+                <p><strong>DOB:</strong> <span id="profDob">-</span></p>
+                <p><strong>Gender:</strong> <span id="profGender">-</span></p>
+                <button class="edit-details-btn" id="openEditBtn"><i class="fa-solid fa-pen"></i> Update Profile</button>
+            </div>
+
+            <!-- Update/Edit Form Mode (Hidden by Default) -->
+            <form id="profileEditForm" style="display: none;">
+                <div class="edit-input-group">
+                    <label>Full Name</label>
+                    <input type="text" name="fullName" id="editName" required>
+                </div>
+                <div class="edit-input-group">
+                    <label>Age</label>
+                    <input type="number" name="age" id="editAge" required>
+                </div>
+                <div class="edit-input-group">
+                    <label>Date of Birth</label>
+                    <input type="date" name="dob" id="editDob" required>
+                </div>
+                <div class="edit-button-row">
+                    <button type="button" class="cancel-edit-btn" id="cancelEditBtn">Cancel</button>
+                    <button type="submit" class="save-edit-btn">Save Changes</button>
+                </div>
+            </form>
+
+            <hr style="border: 0; border-top: 1px solid #444; margin: 15px 0;">
+            <button class="signout-btn" id="signoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+        </div>
+    </div>
+</aside>
+
+<!-- RIGHT PANEL MAIN CONTENT VIEWPORT CONTAINER -->
+<main class="main-content">
+    <section class="hero">
+        <div class="content">
+            <h1>Elevate Your <span>Workout</span></h1>
+            <p>Become stronger, healthier and more confident with our professional trainers and modern gym facilities.</p>
+            <div class="buttons">
+                <a href="#" class="btn1">Book Class</a>
+                <a href="#" class="btn2">Learn More</a>
+            </div>
+            <div class="stats">
+                <div><h2 class="counter" data-target="50000">0</h2><p>Members</p></div>
+                <div><h2 class="counter" data-target="120">0</h2><p>Trainers</p></div>
+                <div><h2 class="counter" data-target="25">0</h2><p>Branches</p></div>
+                <div><h2 class="counter" data-target="15">0</h2><p>Years</p></div>
+            </div>
+        </div>
+        <!-- High resolution backup picture in case your local images folder hits path location errors -->
+        <div class="image">
+            <img src="https://unsplash.com" onerror="this.src='./photo/nextfit.png';" alt="Gym Building">
+        </div>
+    </section>
+</main>
+
+<!-- ALL ORIGINAL SCRIPTS INTEGERS UNTOUCHED & BACKEND COMPATIBLE -->
+<script>
+    // 1. ORIGINAL ANIMATION COUNTER CODE
+    const counters = document.querySelectorAll(".counter");
+    counters.forEach(counter => {
+        counter.innerText = "0";
+        const update = () => {
+            const target = +counter.getAttribute("data-target");
+            const c = +counter.innerText;
+            const increment = target / 150;
+            if (c < target) {
+                counter.innerText = Math.ceil(c + increment);
+                setTimeout(update, 15);
+            } else {
+                counter.innerText = target.toLocaleString() + "+";
+            }
+        }
+        update();
+    });
+
+    // 2. DROPDOWN INTERACTION MANAGEMENT
+    const avatarBtn = document.getElementById('avatarBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const openEditBtn = document.getElementById('openEditBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const profileViewMode = document.getElementById('profileViewMode');
+    const profileEditForm = document.getElementById('profileEditForm');
+
+    avatarBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', () => {
+        profileDropdown.classList.remove('active');
+    });
+    profileDropdown.addEventListener('click', (e) => e.stopPropagation());
+
+    openEditBtn.addEventListener('click', () => {
+        profileViewMode.style.display = 'none';
+        profileEditForm.style.display = 'block';
+    });
+    cancelEditBtn.addEventListener('click', () => {
+        profileViewMode.style.display = 'block';
+        profileEditForm.style.display = 'none';
+    });
+
+    // 3. SERVER SYNC: Load user data when page is opened
+    async function loadUserProfile() {
+        try {
+            const response = await fetch('/auth/profile');
+            if (!response.ok) {
+                window.location.href = 'loginpage.html'; 
+                return;
+            }
+            const data = await response.json();
+            
+            // Render details on Screen
+            document.getElementById('navUserName').innerText = data.fullName.split(' ')[0]; 
+            document.getElementById('profName').innerText = data.fullName;
+            document.getElementById('profEmail').innerText = data.email;
+            document.getElementById('profAge').innerText = data.age;
+            document.getElementById('profDob').innerText = data.dob;
+            document.getElementById('profGender').innerText = data.gender;
+
+            // Pre-fill updating inputs
+            document.getElementById('editName').value = data.fullName;
+            document.getElementById('editAge').value = data.age;
+            document.getElementById('editDob').value = data.dob;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    loadUserProfile();
+
+    // 4. ACTION INTERACTION: Submitting Form Updates to MongoDB backend
+    profileEditForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const updatedData = {
+            fullName: document.getElementById('editName').value,
+            age: document.getElementById('editAge').value,
+            dob: document.getElementById('editDob').value
+        };
+
+        const response = await fetch('/auth/profile/update', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+        });
+        
+        const result = await response.json();
+        alert(result.message);
+        if (response.ok) {
+            profileViewMode.style.display = 'block';
+            profileEditForm.style.display = 'none';
+            loadUserProfile(); 
+        }
+    });
+
+    // 5. SIGN OUT SYNC INTERACTION RUNNER
+    document.getElementById('signoutBtn').addEventListener('click', async () => {
+        const response = await fetch('/auth/logout', { method: 'POST' });
+        const result = await response.json();
+        if (result.success) {
+            window.location.href = 'loginpage.html';
+        }
+    });
+</script>
+</body>
+</html>

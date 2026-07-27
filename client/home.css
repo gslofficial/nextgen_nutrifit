@@ -1,0 +1,303 @@
+/* Core system reset settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #0b0b0b;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex; /* Arranges left sidebar column beside right content column */
+}
+
+/* --- VERTICAL NAVIGATION SIDEBAR BOX --- */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #111111;
+    border-right: 1px solid #222222;
+    position: fixed; /* Locks menu panel to the left wall permanently */
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 15px;
+    z-index: 100;
+}
+
+.sidebar .logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 40px;
+    padding-left: 10px;
+    letter-spacing: 0.5px;
+}
+
+.sidebar .logo span {
+    color: #ffff00;
+}
+
+/* Sidebar Menu navigation text links grid */
+.sidebar-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1; /* Pushes the user profile menu to the very bottom wall */
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #8a8a8a;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 12px 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+/* Fixed positioning icons spacing layout */
+.sidebar-menu li i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* Matching Reference Style: Vibrant lime accent for the active page selection */
+.sidebar-menu li.active-item a {
+    background-color: #a3e635; /* Premium lime/light-green tone from your picture */
+    color: #000000;
+    font-weight: 600;
+}
+
+/* Hover style behavior states for ordinary inactive items */
+.sidebar-menu li:not(.active-item) a:hover {
+    color: #ffff00;
+    background: rgba(255, 255, 0, 0.05);
+}
+
+/* Notification badge layout tracker count element */
+.msg-badge {
+    background: #f97316; /* Vibrant orange notification token indicator */
+    color: #ffffff;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 50px;
+    margin-left: auto;
+    font-weight: 700;
+}
+
+/* --- BOTTOM PROFILE POPUP CONTAINER --- */
+.profile-container {
+    position: relative;
+    border-top: 1px solid #222222;
+    padding-top: 15px;
+}
+
+.profile-avatar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.profile-avatar:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.profile-avatar i {
+    font-size: 1.7rem;
+    color: #ffff00;
+}
+
+#navUserName {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.profile-dropdown {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 230px;
+    background: #161616;
+    border: 1px solid #333333;
+    border-radius: 12px;
+    padding: 15px;
+    display: none;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+.profile-dropdown.active {
+    display: block;
+}
+
+.dropdown-header h3 {
+    font-size: 1rem;
+    color: #ffff00;
+    margin-bottom: 12px;
+}
+
+.profile-dropdown p {
+    font-size: 0.8rem;
+    margin: 6px 0;
+    color: #cccccc;
+    text-align: left;
+}
+
+.edit-input-group {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.edit-input-group label {
+    display: block;
+    font-size: 0.75rem;
+    color: #888888;
+    margin-bottom: 3px;
+}
+
+.edit-input-group input {
+    width: 100%;
+    padding: 6px;
+    background: #222222;
+    border: 1px solid #444444;
+    color: #ffffff;
+    border-radius: 4px;
+    outline: none;
+}
+
+.edit-details-btn, .signout-btn, .save-edit-btn, .cancel-edit-btn {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
+
+.edit-details-btn {
+    background: transparent;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+}
+
+.signout-btn {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.edit-button-row {
+    display: flex;
+    gap: 8px;
+}
+
+.cancel-edit-btn { background: #444444; color: #ffffff; }
+.save-edit-btn { background: #22c55e; color: #ffffff; }
+
+/* --- RIGHT MAIN GRAPHICAL HERO COLUMN VIEWPORT --- */
+.main-content {
+    margin-left: 260px; /* Moves layout inward to prevent sidebar panel overlapping */
+    flex-grow: 1;
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 50px;
+    align-items: center;
+    max-width: 1100px;
+    width: 100%;
+}
+
+.hero .content h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero .content h1 span {
+    color: #ffff00;
+}
+
+.hero .content p {
+    color: #aaaaaa;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 45px;
+}
+
+.buttons a {
+    text-decoration: none;
+    padding: 14px 35px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.btn1 {
+    background: #ffff00;
+    color: #000000;
+}
+
+.btn2 {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+.btn1:hover {
+    background: #dddd00;
+    box-shadow: 0 5px 15px rgba(255, 255, 0, 0.2);
+}
+
+.btn2:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.stats {
+    display: flex;
+    gap: 40px;
+}
+
+.stats h2 {
+    font-size: 2rem;
+    color: #ffff00;
+    font-weight: 700;
+}
+
+.stats p {
+    color: #666666;
+    font-size: 0.85rem;
+}
+
+.hero .image img {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
