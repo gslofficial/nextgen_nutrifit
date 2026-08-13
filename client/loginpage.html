@@ -3,9 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GYMFIT Login</title>
+    <title>NEXTGEN NUTRIFIT Login</title>
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* CSS to place the eye icon perfectly inside the right side of the password box */
+        .input-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: #fcfbfb;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding-right: 40px; /* Make space so text doesn't hide behind the eye */
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.2s;
+            z-index: 10;
+        }
+        .fa-eye:before {
+    color: white;
+    content: "\f06e";
+}
+
+        .toggle-password:hover {
+            color: yellow; /* Accent theme color match */
+        }
+    </style>
 </head>
 <body>
 
@@ -15,17 +46,18 @@
             <h2>NextGen <span>NutriFit</span></h2>
         </div>
 
-        <!-- Added an ID to the form -->
         <form class="login-form" id="loginForm">
-            <!-- Added name attributes to inputs -->
             <div class="input-box">
                 <i class="fa-solid fa-envelope"></i>
-                <input type="email" name="email" placeholder="Email id" required>
+                <input type="email" name="email" placeholder="Email Id" required>
             </div>
 
+            <!-- Password Box Updated with the Eye Icon Button Layout -->
             <div class="input-box">
-                <i class="fa-solid fa-key"></i>
-                <input type="password" name="password" placeholder="Enter your password" required>
+                <i class="fa-solid fa-key" style="color: white"></i>
+                <input type="password" name="password" id="passwordInput" placeholder="Enter your password" required>
+                <!-- This is the eye icon layout tracking switch -->
+                <i class="fa-solid fa-eye toggle-password" id="togglePasswordBtn"></i>
             </div>
 
             <div class="buttons">
@@ -41,51 +73,44 @@
         <div class="footer">Terms Of Use | Privacy Policy</div>
     </div>
 
-<!-- <script>
-    // This script sends your credentials to Node.js to be validated
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-
-        const response = await fetch('/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-        alert(result.message);
-        if (result.success) {
-            // Your user logged in! You can redirect them to a dashboard here
-            alert("Welcome to the gym dashboard portal!");
-        }
-    });
-</script> -->
-
-
 <script>
+    // --- 1. SHOW/HIDE PASSWORD TOGGLE HANDLER ---
+    const passwordInput = document.getElementById('passwordInput');
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+
+    togglePasswordBtn.addEventListener('click', function () {
+        // Toggle the input type attribute between password and text
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Toggle the icon glyph appearance looks (Eye vs Eye-Slash)
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    // --- 2. FORMS SUBMISSION ENGINE LOGIC ---
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        const response = await fetch('/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+        try {
+            const response = await fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-        const result = await response.json();
-        
-        if (result.success) {
-            // This line instantly sends the user to your home page!
-            window.location.href = 'homepage.html'; 
-        } else {
-            // Show the error message (like "Invalid password") if login fails
-            alert(result.message);
+            const result = await response.json();
+            
+            if (result.success) {
+                window.location.href = 'homepage.html'; 
+            } else {
+                alert(result.message);
+            }
+        } catch (err) {
+            alert("Could not connect to back-end execution service endpoints.");
         }
     });
 </script>

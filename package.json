@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -12,9 +13,21 @@
   "type": "commonjs",
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "body-parser": "^2.3.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
-    "mongoose": "^9.7.3"
-  }
+    "mongoose": "^9.9.2",
+    "nodemailer": "^9.0.5",
+    "resend": "^6.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gslofficial/NextGenNutriFit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gslofficial/NextGenNutriFit/issues"
+  },
+  "homepage": "https://github.com/gslofficial/NextGenNutriFit#readme"
 }

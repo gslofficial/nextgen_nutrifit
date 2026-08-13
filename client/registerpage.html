@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextGem Gym Register</title>
+    <title>NextGen Gym Register</title>
+    <!-- 1. CRITICAL: Loads the required icon stylesheet from FontAwesome -->
+    <link rel="stylesheet" href="https://cloudflare.com">
     <link rel="stylesheet" href="register.css">
+   
 </head>
 <body>
 
@@ -16,11 +19,9 @@
 
     <h2>Create Account</h2>
 
-    <!-- Added an ID to the form -->
     <form id="registerForm">
-        <!-- Added name attributes to all inputs -->
         <input type="text" name="fullName" placeholder="Full Name" required>
-        <input type="number" name="age" placeholder="Age" required>
+        <input type="text" name="address" placeholder="Address" required>
 
         <div class="gender">
             <label><input type="radio" name="gender" value="Male" checked> Male</label>
@@ -29,8 +30,18 @@
 
         <input type="date" name="dob" required>
         <input type="email" name="email" placeholder="Email Address (Login ID)" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        
+        <!-- Main Password Container Block Wrapper -->
+        <div class="password-wrapper">
+            <input type="password" name="password" id="regPassword" placeholder="Password" required>
+            <i class="fa-solid fa-eye toggle-eye" id="toggleRegPassword"></i>
+        </div>
+
+        <!-- Confirm Password Container Block Wrapper -->
+        <div class="password-wrapper" style="margin-bottom: 20px !important;">
+            <input type="password" name="confirmPassword" id="regConfirmPassword" placeholder="Confirm Password" required>
+            <i class="fa-solid fa-eye toggle-eye" id="toggleRegConfirmPassword"></i>
+        </div>
 
         <button type="submit">REGISTER</button>
     </form>
@@ -39,23 +50,59 @@
 </div>
 
 <script>
-    // This script catches form submission and sends it to Node.js
+    // --- 1. ENHANCED EYE ICON CLICK TOGGLES WITH ERROR HANDLERS ---
+    const regPassword = document.getElementById('regPassword');
+    const regConfirmPassword = document.getElementById('regConfirmPassword');
+    const toggleRegPassword = document.getElementById('toggleRegPassword');
+    const toggleRegConfirmPassword = document.getElementById('toggleRegConfirmPassword');
+
+    if (toggleRegPassword && regPassword) {
+        toggleRegPassword.addEventListener('click', function () {
+            const isPassword = regPassword.getAttribute('type') === 'password';
+            regPassword.setAttribute('type', isPassword ? 'text' : 'password');
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    }
+
+    if (toggleRegConfirmPassword && regConfirmPassword) {
+        toggleRegConfirmPassword.addEventListener('click', function () {
+            const isPassword = regConfirmPassword.getAttribute('type') === 'password';
+            regConfirmPassword.setAttribute('type', isPassword ? 'text' : 'password');
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    }
+
+    // --- 2. BACKEND API SUBMISSION HANDLER ---
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        const response = await fetch('/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+        // Basic sanity verification step checks before triggering browser fetch networking routes
+        if (data.password !== data.confirmPassword) {
+            alert("❌ Passwords do not match!");
+            return;
+        }
 
-        const result = await response.json();
-        alert(result.message);
-        if (result.success) {
-            window.location.href = 'loginpage.html'; // Move to login page on success
+        try {
+            const response = await fetch('/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            alert(result.message);
+            
+            if (result.success) {
+                window.location.href = 'loginpage.html';
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Could not establish a clean data link with your local node server engine. Check server running state configuration.");
         }
     });
 </script>

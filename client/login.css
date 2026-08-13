@@ -22,7 +22,7 @@ body{
     height: 758px;
     background: transparent;
     position:relative;
-    left: -450px;
+    left: -550px;
     overflow:hidden;
     border-radius:30px;
     
@@ -82,9 +82,10 @@ body{
 }
 
 .input-box i{
-    color:yellow;
+    color:white;
     margin-right:10px;
 }
+
 
 .input-box input{
      width:100%;
@@ -92,7 +93,7 @@ body{
     background:transparent;
     border:none;
     outline:none;
-    color:yellow;
+    color:white;
     font-size:16px;
 }
 

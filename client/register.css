@@ -17,6 +17,8 @@ body{
     align-items:center;
 }
 
+
+
 .register-container{
 
     width:450px;
@@ -139,4 +141,39 @@ p{
 a{
     color:#00d9ff;
     text-decoration:none;
+}
+/* ========================================================
+   👁️ COMPATIBLE PASSWORD FIELD EYE ALIGNMENTS
+   ======================================================== */
+.password-wrapper {
+    position: relative !important;
+    width: 100% !important;
+}
+
+/* Ensure the input leaves space so letters do not overlap behind the eye icon */
+.password-wrapper input {
+    padding-right: 200px !important; 
+    box-sizing: border-box !important;
+}
+
+/* Styles and centers the FontAwesome Eye icon vertically on the right side */
+.toggle-eye {
+    position: absolute !important;
+    right: 16px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    cursor: pointer !important;
+    color: #ffffff !important; /* Pure White Color Configuration */
+    font-size: 1.1rem !important;
+    transition: color 0.2s ease !important;
+    z-index: 999 !important; /* Ensures the icon sits on top of the input field */
+    background: transparent !important;
+    opacity: 0.8; /* Subtle transparency so it blends elegantly */
+}
+
+/* Glow effect or opacity change when the user hovers over the white eye icon */
+.toggle-eye:hover {
+    color: #ffffff !important;
+    opacity: 1 !important; /* Becomes fully solid white on hover */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); /* Modern clean glow styling */
 }
