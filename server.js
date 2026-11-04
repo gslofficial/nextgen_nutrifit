@@ -158,33 +158,25 @@ async function seedInitialData() {
 // ========================================================
 // 📧 DYNAMIC EMAIL AUTHENTICATION SYSTEM (NO HARDCODED TO:)
 // ========================================================
+const { Resend } = require('resend');
+
 async function sendSystemMail(to, subject, htmlContent) {
     try {
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.APP_EMAIL,
-                pass: process.env.APP_PASS // Your secure 16-character app password
-            }
-        });
-
-        const mailOptions = {
-            from: `"NextGenNutriFit Engine" <${process.env.APP_EMAIL}>`,
-            to: to, // Targets the active user dynamically!
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const { data, error } = await resend.emails.send({
+            from: 'NextGenNutriFit <onboarding@resend.dev>',
+            to: [to],
             subject: subject,
-            html: htmlContent 
-        };
-
-        const info = await transporter.sendMail(mailOptions);
-        console.log(`Email successfully dispatched to ${to}:`, info.response);
-        return { success: true, response: info.response };
-        
+            html: htmlContent
+        });
+        if (error) throw new Error(JSON.stringify(error));
+        console.log(`Email successfully dispatched to ${to}`);
+        return { success: true };
     } catch (error) {
-        console.error(`Nodemailer transport pipeline failure targeting ${to}:`, error);
-        throw error; 
+        console.error(`Email failure targeting ${to}:`, error);
+        throw error;
     }
 }
-
 // ========================================================
 // ✅ NEW: EMAIL EXISTENCE VALIDATION HELPERS
 // ========================================================
