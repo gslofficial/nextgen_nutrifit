@@ -1,0 +1,1130 @@
+[
+  {
+    "id": "jumping-jacks",
+    "cat": "home",
+    "muscle": "Full body / cardio",
+    "name": "Jumping Jacks",
+    "pattern": "cardio",
+    "type": "reps",
+    "sets": 3,
+    "reps": 20,
+    "rest": 30,
+    "video": "exercise_video/jumping-jack.mp4",
+    "cues": [
+      "Feet together, arms at sides to start",
+      "Jump feet apart while raising arms overhead",
+      "Jump back to start — that's one rep",
+      "Keep a steady, springy rhythm"
+    ]
+  },
+  {
+    "id": "high-knees",
+    "cat": "home",
+    "muscle": "Full body / cardio",
+    "name": "Running in Place (High Knees)",
+    "pattern": "cardio",
+    "type": "hold",
+    "sets": 3,
+    "hold": 30,
+    "rest": 30,
+    "video": "exercise_video/high-knee.mp4",
+    "cues": [
+      "Drive knees up toward hip height",
+      "Pump arms like a real sprint",
+      "Stay on the balls of your feet",
+      "Land light, not flat-footed"
+    ]
+  },
+  {
+    "id": "push-up",
+    "cat": "home",
+    "muscle": "Chest / triceps",
+    "name": "Push-Up",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 45,
+    "video": "exercise_video/push-up.mp4",
+    "cues": [
+      "Hands just outside shoulder width",
+      "Body in one straight line, core tight",
+      "Lower until chest is near the floor",
+      "Press back up without flaring elbows"
+    ]
+  },
+  {
+    "id": "bw-squat",
+    "cat": "home",
+    "muscle": "Legs / glutes",
+    "name": "Bodyweight Squat",
+    "pattern": "squat",
+    "type": "reps",
+    "sets": 3,
+    "reps": 15,
+    "rest": 40,
+    "video": "exercise_video/bodyweight-squat.mp4",
+    "cues": [
+      "Feet shoulder-width, toes slightly out",
+      "Sit hips back and down, knees track toes",
+      "Thighs to at least parallel",
+      "Drive through heels to stand"
+    ]
+  },
+  {
+    "id": "lunge-bw",
+    "cat": "home",
+    "muscle": "Legs / glutes",
+    "name": "Forward Lunge",
+    "pattern": "lunge",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 40,
+    "video": "exercise_video/forward-lunge.mp4",
+    "cues": [
+      "Step forward, lower the back knee toward the floor",
+      "Front knee stays above the ankle",
+      "Push off the front foot to return",
+      "Alternate legs each rep"
+    ]
+  },
+  {
+    "id": "plank",
+    "cat": "home",
+    "muscle": "Core",
+    "name": "Plank Hold",
+    "pattern": "core",
+    "type": "hold",
+    "sets": 3,
+    "hold": 40,
+    "rest": 30,
+    "video": "exercise_video/plank-hold.mp4",
+    "cues": [
+      "Forearms down, elbows under shoulders",
+      "Body one straight line, no sagging hips",
+      "Squeeze glutes and brace your core",
+      "Breathe — don't hold your breath"
+    ]
+  },
+  {
+    "id": "mountain-climbers",
+    "cat": "home",
+    "muscle": "Core / cardio",
+    "name": "Mountain Climbers",
+    "pattern": "cardio",
+    "type": "hold",
+    "sets": 3,
+    "hold": 30,
+    "rest": 30,
+    "video": "exercise_video/mountain-climb.mp4",
+    "cues": [
+      "Start in a high plank",
+      "Drive knees toward chest, alternating fast",
+      "Keep hips low and steady",
+      "Hands stay planted under shoulders"
+    ]
+  },
+  {
+    "id": "burpee",
+    "cat": "home",
+    "muscle": "Full body",
+    "name": "Burpee",
+    "pattern": "cardio",
+    "type": "reps",
+    "sets": 3,
+    "reps": 10,
+    "rest": 60,
+    "video": "exercise_video/burpee.mp4",
+    "cues": [
+      "Squat down, hands to the floor",
+      "Kick feet back into a plank",
+      "Chest to floor, then push back up",
+      "Jump feet in and leap up"
+    ]
+  },
+  {
+    "id": "glute-bridge",
+    "cat": "home",
+    "muscle": "Glutes / hamstrings",
+    "name": "Glute Bridge",
+    "pattern": "core",
+    "type": "reps",
+    "sets": 3,
+    "reps": 15,
+    "rest": 30,
+    "video": "exercise_video/glute-bridge.mp4",
+    "cues": [
+      "Lie back, knees bent, feet flat",
+      "Drive hips up, squeezing glutes at the top",
+      "Pause a beat, then lower with control",
+      "Keep ribs down, no arching the low back"
+    ]
+  },
+  {
+    "id": "superman",
+    "cat": "home",
+    "muscle": "Lower back",
+    "name": "Superman Hold",
+    "pattern": "core",
+    "type": "hold",
+    "sets": 3,
+    "hold": 20,
+    "rest": 30,
+    "video": "exercise_video/superman-hold.mp4",
+    "cues": [
+      "Lie face down, arms extended forward",
+      "Lift chest, arms and legs off the floor together",
+      "Hold, squeezing glutes and back",
+      "Lower slowly — don't just drop"
+    ]
+  },
+  {
+    "id": "wall-sit",
+    "cat": "home",
+    "muscle": "Legs",
+    "name": "Wall Sit",
+    "pattern": "squat",
+    "type": "hold",
+    "sets": 3,
+    "hold": 45,
+    "rest": 30,
+    "video": "exercise_video/wall-sit-crunch.mp4",
+    "cues": [
+      "Back flat against a wall",
+      "Slide down until thighs are parallel to floor",
+      "Knees stacked over ankles",
+      "Hold steady — small wobbles are fine"
+    ]
+  },
+  {
+    "id": "bicycle-crunch",
+    "cat": "home",
+    "muscle": "Stomach",
+    "name": "Bicycle Crunch",
+    "pattern": "core",
+    "type": "reps",
+    "sets": 3,
+    "reps": 16,
+    "rest": 30,
+    "video": "exercise_video/bicycle-crunch.mp4",
+    "cues": [
+      "Hand behind head, opposite hand out",
+      "Lift knee while crunching elbow toward it",
+      "Squeeze the side of your waist",
+      "Alternate sides each rep"
+    ]
+  },
+  {
+    "id": "barbell-squat",
+    "cat": "gym",
+    "group": "legs",
+    "muscle": "Quads / glutes",
+    "name": "Barbell Back Squat",
+    "pattern": "squat",
+    "type": "reps",
+    "sets": 4,
+    "reps": 8,
+    "rest": 90,
+    "video": "exercise_video/barbell-back-squat.mp4",
+    "cues": [
+      "Bar rests across the upper traps",
+      "Brace core hard before descending",
+      "Hips and knees bend together",
+      "Drive up, keep the bar path vertical"
+    ]
+  },
+  {
+    "id": "leg-press",
+    "cat": "gym",
+    "group": "legs",
+    "muscle": "Quads / glutes",
+    "name": "Leg Press",
+    "pattern": "squat",
+    "type": "reps",
+    "sets": 4,
+    "reps": 10,
+    "rest": 75,
+    "video": "exercise_video/leg-press.mp4",
+    "cues": [
+      "Feet shoulder-width on the platform",
+      "Lower until knees reach about 90°",
+      "Don't let lower back round off the pad",
+      "Press through the whole foot"
+    ]
+  },
+  {
+    "id": "leg-extension",
+    "cat": "gym",
+    "group": "legs",
+    "muscle": "Quads",
+    "name": "Leg Extension",
+    "pattern": "squat",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 60,
+    "video": "exercise_video/leg-extension.mp4",
+    "cues": [
+      "Back flat against the pad",
+      "Extend knees until legs are straight",
+      "Squeeze quads hard at the top",
+      "Lower under control, no swinging"
+    ]
+  },
+  {
+    "id": "romanian-deadlift",
+    "cat": "gym",
+    "group": "legs",
+    "muscle": "Hamstrings / glutes",
+    "name": "Romanian Deadlift",
+    "pattern": "row",
+    "type": "reps",
+    "sets": 4,
+    "reps": 8,
+    "rest": 90,
+    "video": "exercise_video/romanian-deadlift.mp4",
+    "cues": [
+      "Slight knee bend, bar close to shins",
+      "Hinge at the hips, chest stays proud",
+      "Lower until you feel a hamstring stretch",
+      "Drive hips forward to stand"
+    ]
+  },
+  {
+    "id": "calf-raise",
+    "cat": "gym",
+    "group": "legs",
+    "muscle": "Calves",
+    "name": "Standing Calf Raise",
+    "pattern": "squat",
+    "type": "reps",
+    "sets": 3,
+    "reps": 15,
+    "rest": 45,
+    "video": "exercise_video/calf-raise.mp4",
+    "cues": [
+      "Balls of feet on the edge of a platform",
+      "Rise as high onto the toes as possible",
+      "Pause and squeeze at the top",
+      "Lower until you feel a full stretch"
+    ]
+  },
+  {
+    "id": "sumo-squat",
+    "cat": "gym",
+    "group": "thighs",
+    "muscle": "Inner thighs / glutes",
+    "name": "Sumo Squat",
+    "pattern": "squat",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 60,
+    "video": "exercise_video/sumo-squat.mp4",
+    "cues": [
+      "Wide stance, toes turned out",
+      "Sit straight down between the heels",
+      "Keep chest tall throughout",
+      "Drive knees out as you stand"
+    ]
+  },
+  {
+    "id": "dumbbell-lunge",
+    "cat": "gym",
+    "group": "thighs",
+    "muscle": "Quads / inner thighs",
+    "name": "Dumbbell Lunge",
+    "pattern": "lunge",
+    "type": "reps",
+    "sets": 3,
+    "reps": 10,
+    "rest": 60,
+    "video": "exercise_video/dumbbell-lunge.mp4",
+    "cues": [
+      "A dumbbell in each hand, arms at sides",
+      "Step forward into a controlled lunge",
+      "Front knee tracks over the foot",
+      "Push back to standing, switch legs"
+    ]
+  },
+  {
+    "id": "leg-curl",
+    "cat": "gym",
+    "group": "thighs",
+    "muscle": "Hamstrings",
+    "name": "Lying Leg Curl",
+    "pattern": "squat",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 60,
+    "video": "exercise_video/lying-leg-curl.mp4",
+    "cues": [
+      "Hips pressed flat into the pad",
+      "Curl heels toward glutes",
+      "Squeeze hamstrings at the top",
+      "Lower with control, don't let the weight drop"
+    ]
+  },
+  {
+    "id": "adductor-machine",
+    "cat": "gym",
+    "group": "thighs",
+    "muscle": "Inner thighs",
+    "name": "Hip Adductor Machine",
+    "pattern": "squat",
+    "type": "reps",
+    "sets": 3,
+    "reps": 15,
+    "rest": 45,
+    "video": "exercise_video/hip-adductor-machine.mp4",
+    "cues": [
+      "Sit tall, pads against the outer thighs",
+      "Squeeze knees together against resistance",
+      "Hold a beat at full squeeze",
+      "Return under control"
+    ]
+  },
+  {
+    "id": "overhead-press",
+    "cat": "gym",
+    "group": "shoulders",
+    "muscle": "Shoulders / triceps",
+    "name": "Barbell Overhead Press",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 4,
+    "reps": 8,
+    "rest": 90,
+    "visualViewport": true,
+    "video": "exercise_video/barbell-overhead-press.mp4",
+    "cues": [
+      "Bar at collarbone height, hands just outside shoulders",
+      "Brace core, press straight overhead",
+      "Head slides through once the bar clears it",
+      "Lower back to the start under control"
+    ]
+  },
+  {
+    "id": "lateral-raise",
+    "cat": "gym",
+    "group": "shoulders",
+    "muscle": "Side delts",
+    "name": "Dumbbell Lateral Raise",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 3,
+    "reps": 14,
+    "rest": 45,
+    "video": "exercise_video/dumbbell-lateral-raise.mp4",
+    "cues": [
+      "Dumbbells at your sides, soft elbow bend",
+      "Raise arms out to shoulder height",
+      "Lead with the elbows, not the hands",
+      "Lower slowly — this is where it counts"
+    ]
+  },
+  {
+    "id": "front-raise",
+    "cat": "gym",
+    "group": "shoulders",
+    "muscle": "Front delts",
+    "name": "Dumbbell Front Raise",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 45,
+    "video": "exercise_video/dumbbell-front-raise.mp4",
+    "cues": [
+      "Dumbbells in front of thighs",
+      "Raise one or both arms to shoulder height",
+      "Keep a slight bend in the elbows",
+      "Lower with control, avoid swinging"
+    ]
+  },
+  {
+    "id": "rear-delt-fly",
+    "cat": "gym",
+    "group": "shoulders",
+    "muscle": "Rear delts",
+    "name": "Rear Delt Fly",
+    "pattern": "row",
+    "type": "reps",
+    "sets": 3,
+    "reps": 14,
+    "rest": 45,
+    "video": "exercise_video/rear-delt-fly.mp4",
+    "cues": [
+      "Hinge forward, chest near parallel to floor",
+      "Sweep arms out and back, squeezing shoulder blades",
+      "Keep a slight bend in the elbows",
+      "Lower slowly to the start"
+    ]
+  },
+  {
+    "id": "neck-flexion",
+    "cat": "gym",
+    "group": "neck",
+    "muscle": "Neck flexors",
+    "name": "Neck Flexion (Manual Resistance)",
+    "pattern": "neck",
+    "type": "reps",
+    "sets": 3,
+    "reps": 10,
+    "rest": 30,
+    "video": "exercise_video/neck-flexion.mp4",
+    "cues": [
+      "Hand on forehead for light resistance",
+      "Nod chin toward chest against your hand",
+      "Move slowly, no jerking",
+      "Return to neutral with control"
+    ]
+  },
+  {
+    "id": "neck-lateral",
+    "cat": "gym",
+    "group": "neck",
+    "muscle": "Neck (side)",
+    "name": "Neck Lateral Flexion",
+    "pattern": "neck",
+    "type": "reps",
+    "sets": 3,
+    "reps": 10,
+    "rest": 30,
+    "video": "exercise_video/neck-lateral-flexion.mp4",
+    "cues": [
+      "Hand against the side of the head",
+      "Tilt ear toward shoulder against light resistance",
+      "Keep shoulders down and relaxed",
+      "Switch sides evenly"
+    ]
+  },
+  {
+    "id": "shrugs",
+    "cat": "gym",
+    "group": "neck",
+    "muscle": "Traps",
+    "name": "Barbell Shrug",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 60,
+    "video": "exercise_video/barbell-shrug.mp4",
+    "cues": [
+      "Bar in front, arms straight",
+      "Lift shoulders straight up toward ears",
+      "Avoid rolling the shoulders",
+      "Lower with control"
+    ]
+  },
+  {
+    "id": "barbell-curl",
+    "cat": "gym",
+    "group": "biceps",
+    "muscle": "Biceps",
+    "name": "Barbell Curl",
+    "pattern": "curl",
+    "type": "reps",
+    "sets": 4,
+    "reps": 10,
+    "rest": 60,
+    "video": "exercise_video/barbell-curl.mp4",
+    "cues": [
+      "Grip just outside hip width, elbows pinned to sides",
+      "Curl the bar up without swinging the shoulders",
+      "Squeeze at the top",
+      "Lower fully under control"
+    ]
+  },
+  {
+    "id": "hammer-curl",
+    "cat": "gym",
+    "group": "biceps",
+    "muscle": "Biceps / forearms",
+    "name": "Hammer Curl",
+    "pattern": "curl",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 50,
+    "video": "exercise_video/hammer-curl.mp4",
+    "cues": [
+      "Dumbbells with palms facing each other",
+      "Curl straight up, keeping wrists neutral",
+      "Elbows stay tucked at your sides",
+      "Lower with control"
+    ]
+  },
+  {
+    "id": "concentration-curl",
+    "cat": "gym",
+    "group": "biceps",
+    "muscle": "Biceps",
+    "name": "Concentration Curl",
+    "pattern": "curl",
+    "type": "reps",
+    "sets": 3,
+    "reps": 10,
+    "rest": 45,
+    "video": "exercise_video/concentration-curl.mp4",
+    "cues": [
+      "Seated, elbow braced against inner thigh",
+      "Curl the dumbbell up slowly",
+      "Focus on squeezing the bicep peak",
+      "Lower fully before the next rep"
+    ]
+  },
+  {
+    "id": "preacher-curl",
+    "cat": "gym",
+    "group": "biceps",
+    "muscle": "Biceps",
+    "name": "Preacher Curl",
+    "pattern": "curl",
+    "type": "reps",
+    "sets": 3,
+    "reps": 10,
+    "rest": 60,
+    "video": "exercise_video/preacher-curl.mp4",
+    "cues": [
+      "Upper arms flat against the pad",
+      "Curl up without lifting elbows off the pad",
+      "Squeeze at the top",
+      "Lower until arms are almost straight"
+    ]
+  },
+  {
+    "id": "tricep-pushdown",
+    "cat": "gym",
+    "group": "triceps",
+    "muscle": "Triceps",
+    "name": "Cable Tricep Pushdown",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 50,
+    "video": "exercise_video/cable-tricep-pushdown.mp4",
+    "cues": [
+      "Elbows pinned to your sides throughout",
+      "Push the bar down until arms are straight",
+      "Squeeze triceps at full extension",
+      "Let the bar rise under control"
+    ]
+  },
+  {
+    "id": "skull-crusher",
+    "cat": "gym",
+    "group": "triceps",
+    "muscle": "Triceps",
+    "name": "Skull Crusher",
+    "pattern": "curl",
+    "type": "reps",
+    "sets": 3,
+    "reps": 10,
+    "rest": 60,
+    "video": "exercise_video/skull-crusher.mp4",
+    "cues": [
+      "Lying down, bar or dumbbells above the chest",
+      "Bend only at the elbow, lowering toward the forehead",
+      "Keep upper arms still and vertical",
+      "Extend back up, squeezing triceps"
+    ]
+  },
+  {
+    "id": "overhead-tricep-ext",
+    "cat": "gym",
+    "group": "triceps",
+    "muscle": "Triceps",
+    "name": "Overhead Tricep Extension",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 50,
+    "video": "exercise_video/overhead-tricep-extension.mp4",
+    "cues": [
+      "Weight held overhead with both hands",
+      "Lower behind the head, elbows pointing up",
+      "Keep upper arms close to your ears",
+      "Press back up to full extension"
+    ]
+  },
+  {
+    "id": "dips",
+    "cat": "gym",
+    "group": "triceps",
+    "muscle": "Triceps / chest",
+    "name": "Bench Dips",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 60,
+    "video": "exercise_video/bench-dips.mp4",
+    "cues": [
+      "Hands on the bench edge, legs extended",
+      "Lower hips straight down, elbows pointing back",
+      "Go to about 90° at the elbow",
+      "Press back up without flaring shoulders"
+    ]
+  },
+  {
+    "id": "wrist-curl",
+    "cat": "gym",
+    "group": "arms",
+    "muscle": "Forearms",
+    "name": "Wrist Curl",
+    "pattern": "curl",
+    "type": "reps",
+    "sets": 3,
+    "reps": 15,
+    "rest": 40,
+    "video": "exercise_video/wrist-curl.mp4",
+    "cues": [
+      "Forearms resting on a bench, palms up",
+      "Let the bar roll to your fingertips",
+      "Curl the wrist up as far as possible",
+      "Lower slowly for a full stretch"
+    ]
+  },
+  {
+    "id": "farmers-carry",
+    "cat": "gym",
+    "group": "arms",
+    "muscle": "Forearms / full body",
+    "name": "Farmer's Carry",
+    "pattern": "row",
+    "type": "hold",
+    "sets": 3,
+    "hold": 40,
+    "rest": 60,
+    "video": "exercise_video/farmer-carry.mp4",
+    "cues": [
+      "A heavy weight in each hand, shoulders back",
+      "Walk with short, controlled steps",
+      "Keep the core braced, avoid leaning",
+      "Grip hard the whole way"
+    ]
+  },
+  {
+    "id": "reverse-curl",
+    "cat": "gym",
+    "group": "arms",
+    "muscle": "Forearms / biceps",
+    "name": "Reverse Curl",
+    "pattern": "curl",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 50,
+    "video": "exercise_video/reverse-curl.mp4",
+    "cues": [
+      "Overhand grip on the bar",
+      "Curl up keeping wrists firm and flat",
+      "Elbows stay tucked to your sides",
+      "Lower fully under control"
+    ]
+  },
+  {
+    "id": "bench-press",
+    "cat": "gym",
+    "group": "chest",
+    "muscle": "Chest / triceps",
+    "name": "Barbell Bench Press",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 4,
+    "reps": 8,
+    "rest": 90,
+    "video": "exercise_video/barbell-bench-press.mp4",
+    "cues": [
+      "Grip just wider than shoulder width",
+      "Lower the bar to mid-chest with control",
+      "Elbows at roughly 45° from the torso",
+      "Press up to full lockout"
+    ]
+  },
+  {
+    "id": "incline-barbell-press",
+    "cat": "gym",
+    "group": "chest",
+    "muscle": "Upper chest",
+    "name": "Incline Barbell Press",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 3,
+    "reps": 10,
+    "rest": 75,
+    "video": "exercise_video/incline-barbell-press.mp4",
+    "cues": [
+      "Bench set to a 30–45° incline",
+      "Press dumbbells up and slightly inward",
+      "Stop just short of locking the elbows",
+      "Lower until you feel a stretch"
+    ]
+  },
+  {
+    "id": "cable-fly",
+    "cat": "gym",
+    "group": "chest",
+    "muscle": "Chest",
+    "name": "Cable Fly",
+    "pattern": "row",
+    "type": "reps",
+    "sets": 3,
+    "reps": 14,
+    "rest": 50,
+    "video": "exercise_video/cable-fly.mp4",
+    "cues": [
+      "Slight forward lean, soft elbow bend",
+      "Sweep both hands together in front of the chest",
+      "Squeeze at the center",
+      "Return slowly to the stretch"
+    ]
+  },
+  {
+    "id": "pullover",
+    "cat": "gym",
+    "group": "chest",
+    "muscle": "Chest / triceps",
+    "name": "Dumbbel Pullover",
+    "pattern": "press",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 60,
+    "video": "exercise_video/dumbbell-pullover.mp4",
+    "cues": [
+      "Plate placed across the upper back",
+      "Body in one straight line",
+      "Lower chest close to the floor",
+      "Press back up without sagging hips"
+    ]
+  },
+  {
+    "id": "lat-pulldown",
+    "cat": "gym",
+    "group": "back",
+    "muscle": "Lats",
+    "name": "Lat Pulldown",
+    "pattern": "row",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 60,
+    "video": "exercise_video/lat-pulldown.mp4",
+    "cues": [
+      "Wide overhand grip on the bar",
+      "Pull down to the upper chest, elbows to your sides",
+      "Squeeze shoulder blades together at the bottom",
+      "Let the bar rise under control"
+    ]
+  },
+  {
+    "id": "barbell-row",
+    "cat": "gym",
+    "group": "back",
+    "muscle": "Mid-back / lats",
+    "name": "Barbell Row",
+    "pattern": "row",
+    "type": "reps",
+    "sets": 4,
+    "reps": 8,
+    "rest": 75,
+    "video": "exercise_video/barbell-row.mp4",
+    "cues": [
+      "Hinge forward, back flat, knees soft",
+      "Pull the bar to your lower ribs",
+      "Drive elbows back, squeeze shoulder blades",
+      "Lower with control, don't round the back"
+    ]
+  },
+  {
+    "id": "deadlift",
+    "cat": "gym",
+    "group": "back",
+    "muscle": "Posterior chain",
+    "name": "Conventional Deadlift",
+    "pattern": "row",
+    "type": "reps",
+    "sets": 4,
+    "reps": 6,
+    "rest": 120,
+    "video": "exercise_video/deadlift.mp4",
+    "cues": [
+      "Bar over mid-foot, shins close to it",
+      "Flat back, chest up before pulling",
+      "Push the floor away with your legs",
+      "Lock out hips and knees together"
+    ]
+  },
+  {
+    "id": "pull-up",
+    "cat": "gym",
+    "group": "back",
+    "muscle": "Lats / biceps",
+    "name": "Pull-Up",
+    "pattern": "row",
+    "type": "reps",
+    "sets": 4,
+    "reps": 6,
+    "rest": 90,
+    "video": "exercise_video/pull-up.mp4",
+    "cues": [
+      "Overhand grip, just outside shoulder width",
+      "Pull chin over the bar, elbows driving down",
+      "Avoid swinging or kicking",
+      "Lower fully under control"
+    ]
+  },
+  {
+    "id": "cable-crunch",
+    "cat": "gym",
+    "group": "abs",
+    "muscle": "Abs",
+    "name": "Cable Crunch",
+    "pattern": "core",
+    "type": "reps",
+    "sets": 3,
+    "reps": 15,
+    "rest": 45,
+    "video": "exercise_video/cable-crunch.mp4",
+    "cues": [
+      "Kneel below the cable, rope behind your neck",
+      "Crunch down, bringing elbows toward your knees",
+      "Round the spine — this is a crunch, not a hinge",
+      "Rise back up under control"
+    ]
+  },
+  {
+    "id": "hanging-leg-raise",
+    "cat": "gym",
+    "group": "abs",
+    "muscle": "Lower abs",
+    "name": "Hanging Leg Raise",
+    "pattern": "core",
+    "type": "reps",
+    "sets": 3,
+    "reps": 12,
+    "rest": 60,
+    "video": "exercise_video/hanging-leg-raise.mp4",
+    "cues": [
+      "Hang from the bar with a firm grip",
+      "Raise legs to at least hip height",
+      "Avoid swinging — control the motion",
+      "Lower with control, don't let them drop"
+    ]
+  },
+  {
+    "id": "russian-twist",
+    "cat": "gym",
+    "group": "abs",
+    "muscle": "Obliques",
+    "name": "Russian Twist",
+    "pattern": "core",
+    "type": "reps",
+    "sets": 3,
+    "reps": 20,
+    "rest": 40,
+    "video": "exercise_video/russian-twist.mp4",
+    "cues": [
+      "Sit back slightly, feet hovering or grounded",
+      "Rotate the torso side to side",
+      "Move from the ribs, not just the arms",
+      "Keep the chest lifted throughout"
+    ]
+  },
+  {
+    "id": "ab-wheel",
+    "cat": "gym",
+    "group": "abs",
+    "muscle": "Abs / core",
+    "name": "Abs Wheel Rollout",
+    "pattern": "core",
+    "type": "reps",
+    "sets": 3,
+    "reps": 10,
+    "rest": 60,
+    "video": "exercise_video/abs-wheel-roll.mp4",
+    "cues": [
+      "Kneel, hands on the wheel in front",
+      "Roll forward while keeping the core braced",
+      "Go as far as you can control",
+      "Pull back in without letting the hips sag"
+    ]
+  },
+  {
+    "id": "downward-dog",
+    "cat": "yoga",
+    "muscle": "Full body stretch",
+    "name": "Downward-Facing Dog",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 3,
+    "hold": 40,
+    "rest": 15,
+    "cues": [
+      "Hands and feet on the mat, hips lifted high",
+      "Form an inverted V with your body",
+      "Press heels toward the floor, relax the neck",
+      "Breathe slowly and evenly"
+    ]
+  },
+  {
+    "id": "warrior-2",
+    "cat": "yoga",
+    "muscle": "Legs / hips",
+    "name": "Warrior II",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 2,
+    "hold": 30,
+    "rest": 15,
+    "cues": [
+      "Wide stance, front knee bent over the ankle",
+      "Arms extended parallel to the floor",
+      "Gaze over the front hand",
+      "Hold, then switch sides"
+    ]
+  },
+  {
+    "id": "tree-pose",
+    "cat": "yoga",
+    "muscle": "Balance / core",
+    "name": "Tree Pose",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 2,
+    "hold": 30,
+    "rest": 15,
+    "cues": [
+      "Weight on one foot, spine tall",
+      "Sole of the other foot on the inner thigh or calf",
+      "Hands at heart center or reaching overhead",
+      "Fix your gaze on one point for balance"
+    ]
+  },
+  {
+    "id": "childs-pose",
+    "cat": "yoga",
+    "muscle": "Back / hips",
+    "name": "Child's Pose",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 1,
+    "hold": 60,
+    "rest": 0,
+    "cues": [
+      "Kneel and sit hips back toward the heels",
+      "Fold forward, arms extended or by your sides",
+      "Rest the forehead on the mat",
+      "Breathe deeply, let the back release"
+    ]
+  },
+  {
+    "id": "cobra-pose",
+    "cat": "yoga",
+    "muscle": "Spine / chest",
+    "name": "Cobra Pose",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 2,
+    "hold": 25,
+    "rest": 15,
+    "cues": [
+      "Lie face down, hands under the shoulders",
+      "Press up, lifting the chest gently",
+      "Keep the pelvis grounded on the mat",
+      "Shoulders relaxed, away from the ears"
+    ]
+  },
+  {
+    "id": "cat-cow",
+    "cat": "yoga",
+    "muscle": "Spine",
+    "name": "Cat–Cow Flow",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 2,
+    "hold": 30,
+    "rest": 15,
+    "cues": [
+      "On hands and knees, wrists under shoulders",
+      "Inhale, drop the belly, lift the gaze (cow)",
+      "Exhale, round the spine, tuck the chin (cat)",
+      "Move slowly with the breath"
+    ]
+  },
+  {
+    "id": "triangle-pose",
+    "cat": "yoga",
+    "muscle": "Legs / side body",
+    "name": "Triangle Pose",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 2,
+    "hold": 30,
+    "rest": 15,
+    "cues": [
+      "Wide stance, front leg straight",
+      "Hinge at the hip, reach the front hand down",
+      "Other arm reaches straight up",
+      "Keep both legs strong and straight"
+    ]
+  },
+  {
+    "id": "bridge-pose",
+    "cat": "yoga",
+    "muscle": "Glutes / spine",
+    "name": "Bridge Pose",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 2,
+    "hold": 30,
+    "rest": 15,
+    "cues": [
+      "Lie back, knees bent, feet flat",
+      "Press into your feet, lift the hips",
+      "Interlace hands beneath you if comfortable",
+      "Keep the neck relaxed, gaze up"
+    ]
+  },
+  {
+    "id": "seated-forward-bend",
+    "cat": "yoga",
+    "muscle": "Hamstrings / back",
+    "name": "Seated Forward Bend",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 1,
+    "hold": 45,
+    "rest": 0,
+    "cues": [
+      "Sit with legs extended in front",
+      "Hinge forward from the hips, spine long",
+      "Reach for your feet or shins",
+      "Relax deeper into the stretch with each exhale"
+    ]
+  },
+  {
+    "id": "savasana",
+    "cat": "yoga",
+    "muscle": "Full body relaxation",
+    "name": "Savasana (Final Rest)",
+    "pattern": "yoga",
+    "type": "hold",
+    "sets": 1,
+    "hold": 60,
+    "rest": 0,
+    "cues": [
+      "Lie flat on your back, arms at your sides",
+      "Let your feet fall open naturally",
+      "Close your eyes, soften the whole body",
+      "Breathe naturally — nowhere to be"
+    ]
+  }
+]

@@ -6,7 +6,9 @@
     <title>NextGen Gym Register</title>
     <!-- 1. CRITICAL: Loads the required icon stylesheet from FontAwesome -->
     <link rel="stylesheet" href="https://cloudflare.com">
-    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="css_file/register.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
 </head>
 <body>
@@ -17,7 +19,7 @@
        <h1>NextGen <span>NutriFit</span></h1>
     </div>
 
-    <h2>Create Account</h2>
+    <h2 id="formTitle">Create Account</h2>
 
     <form id="registerForm">
         <input type="text" name="fullName" placeholder="Full Name" required>
@@ -43,68 +45,179 @@
             <i class="fa-solid fa-eye toggle-eye" id="toggleRegConfirmPassword"></i>
         </div>
 
-        <button type="submit">REGISTER</button>
+        <button type="submit" id="registerSubmitBtn">REGISTER</button>
     </form>
 
-    <p>Already have an account? <a href="loginpage.html">Login</a></p>
+    <!-- NEW: OTP verification step, hidden until the server confirms it sent a code -->
+    <form id="otpForm" style="display:none;">
+        <p style="color:#555; font-size:14px; margin-bottom:10px;">
+            We sent a 6-digit verification code to <strong id="otpEmailLabel"></strong>.
+            Enter it below to finish creating your account.
+        </p>
+        <input type="text" id="otpInput" name="otp" placeholder="Enter 6-digit code" maxlength="6" required>
+        <button type="submit" id="verifySubmitBtn">VERIFY & CREATE ACCOUNT</button>
+        <p style="margin-top:10px;">
+            <a href="#" id="resendOtpLink">Resend code</a> &nbsp;|&nbsp;
+            <a href="#" id="backToFormLink">Use a different email</a>
+        </p>
+    </form>
+
+    <p id="loginLinkText">Already have an account? <a href="loginpage.html">Login</a></p>
 </div>
 
+
 <script>
-    // --- 1. ENHANCED EYE ICON CLICK TOGGLES WITH ERROR HANDLERS ---
+    // Dual eye-icon visibility logic preserved
     const regPassword = document.getElementById('regPassword');
     const regConfirmPassword = document.getElementById('regConfirmPassword');
     const toggleRegPassword = document.getElementById('toggleRegPassword');
     const toggleRegConfirmPassword = document.getElementById('toggleRegConfirmPassword');
 
-    if (toggleRegPassword && regPassword) {
-        toggleRegPassword.addEventListener('click', function () {
-            const isPassword = regPassword.getAttribute('type') === 'password';
-            regPassword.setAttribute('type', isPassword ? 'text' : 'password');
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
+    toggleRegPassword.addEventListener('click', function () {
+        const type = regPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+        regPassword.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    toggleRegConfirmPassword.addEventListener('click', function () {
+        const type = regConfirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+        regConfirmPassword.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    // Elements for the new OTP step
+    const registerForm = document.getElementById('registerForm');
+    const otpForm = document.getElementById('otpForm');
+    const otpEmailLabel = document.getElementById('otpEmailLabel');
+    const otpInput = document.getElementById('otpInput');
+    const formTitle = document.getElementById('formTitle');
+    const loginLinkText = document.getElementById('loginLinkText');
+    const resendOtpLink = document.getElementById('resendOtpLink');
+    const backToFormLink = document.getElementById('backToFormLink');
+
+    // Keep the last submitted registration data so "Resend code" can re-trigger it
+    let lastRegistrationPayload = null;
+    let pendingEmail = null;
+
+    function showOtpStep(email) {
+        pendingEmail = email;
+        otpEmailLabel.textContent = email;
+        registerForm.style.display = 'none';
+        loginLinkText.style.display = 'none';
+        otpForm.style.display = 'flex';
+        formTitle.textContent = 'Verify Your Email';
+        otpInput.value = '';
+        otpInput.focus();
     }
 
-    if (toggleRegConfirmPassword && regConfirmPassword) {
-        toggleRegConfirmPassword.addEventListener('click', function () {
-            const isPassword = regConfirmPassword.getAttribute('type') === 'password';
-            regConfirmPassword.setAttribute('type', isPassword ? 'text' : 'password');
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
+    function showRegisterStep() {
+        pendingEmail = null;
+        otpForm.style.display = 'none';
+        registerForm.style.display = 'flex';
+        loginLinkText.style.display = 'block';
+        formTitle.textContent = 'Create Account';
     }
 
-    // --- 2. BACKEND API SUBMISSION HANDLER ---
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    // REGISTRATION STEP 1: submit details -> server sends OTP email
+    registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        // Basic sanity verification step checks before triggering browser fetch networking routes
         if (data.password !== data.confirmPassword) {
             alert("❌ Passwords do not match!");
             return;
         }
 
+        lastRegistrationPayload = data;
+
         try {
             const response = await fetch('/auth/register', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(data)
             });
 
             const result = await response.json();
+
+            if (result.success && result.requiresVerification) {
+                // Don't redirect yet — the account isn't created until OTP is verified
+                showOtpStep(data.email);
+            } else {
+                alert(result.message);
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert("❌ Unable to connect to the server.");
+        }
+    });
+
+    // REGISTRATION STEP 2: submit OTP -> server creates the account
+    otpForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!pendingEmail) {
+            alert("Something went wrong — please start registration again.");
+            showRegisterStep();
+            return;
+        }
+
+        try {
+            const response = await fetch('/auth/register/verify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: pendingEmail, otp: otpInput.value.trim() })
+            });
+
+            const result = await response.json();
+
             alert(result.message);
-            
+
             if (result.success) {
                 window.location.href = 'loginpage.html';
             }
+
         } catch (err) {
             console.error(err);
-            alert("Could not establish a clean data link with your local node server engine. Check server running state configuration.");
+            alert("❌ Unable to connect to the server.");
         }
     });
+
+    // Resend code by re-submitting the same registration data
+    resendOtpLink.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if (!lastRegistrationPayload) return;
+
+        try {
+            const response = await fetch('/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(lastRegistrationPayload)
+            });
+            const result = await response.json();
+            alert(result.message);
+        } catch (err) {
+            console.error(err);
+            alert("❌ Unable to connect to the server.");
+        }
+    });
+
+    // Let the user go back and fix/change the email address
+    backToFormLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showRegisterStep();
+    });
 </script>
+
 </body>
 </html>

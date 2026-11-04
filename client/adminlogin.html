@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login — NextGen NutriFit</title>
+    <link rel="stylesheet" href="css_file/adminlogin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <div class="admin-login-container">
+        <div class="admin-logo">
+            <img src="./photo/photo1.png" alt="NextGen NutriFit Logo" onerror="this.style.display='none'">
+            <h2>NextGen <span>NutriFit</span></h2>
+            <p class="admin-tag">Admin Console</p>
+        </div>
+
+        <form class="admin-login-form" id="adminLoginForm">
+            <div class="input-box">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" name="email" placeholder="Admin email" required>
+            </div>
+
+            <div class="input-box">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" name="password" id="passwordInput" placeholder="Admin password" required>
+                <i class="fa-solid fa-eye toggle-password" id="togglePasswordBtn"></i>
+            </div>
+
+            <p class="admin-error" id="adminError"></p>
+
+            <button type="submit">Log in to dashboard</button>
+        </form>
+
+        <div class="admin-footer">
+            <a href="loginpage.html">Back to member login</a>
+        </div>
+    </div>
+
+<script src="javascript/adminlogin.js"></script>
+</body>
+</html>

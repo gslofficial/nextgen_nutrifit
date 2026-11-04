@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0d0d0d;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 0, 0.06), transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(76, 175, 80, 0.08), transparent 50%);
+}
+
+.admin-login-container {
+    width: 380px;
+    max-width: 90vw;
+    background: #151515;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    padding: 40px 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.admin-logo {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.admin-logo img {
+    width: 64px;
+}
+
+.admin-logo h2 {
+    color: #fff;
+    font-size: 26px;
+    margin-top: 8px;
+}
+
+.admin-logo h2 span {
+    color: #ffff00;
+}
+
+.admin-tag {
+    color: #888;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #1e1e1e;
+    border: 1px solid #303030;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+}
+
+.input-box:focus-within {
+    border-color: #ffff00;
+}
+
+.input-box i.fa-envelope,
+.input-box i.fa-key {
+    color: #777;
+    margin-right: 10px;
+}
+
+.input-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    padding-right: 24px;
+}
+
+.input-box input::placeholder {
+    color: #666;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    color: #777;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.toggle-password:hover {
+    color: #ffff00;
+}
+
+.admin-error {
+    color: #ff5c5c;
+    font-size: 13px;
+    min-height: 18px;
+    margin-bottom: 8px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 13px;
+    background: #ffff00;
+    color: #111;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s;
+}
+
+button[type="submit"]:hover {
+    background: #f5f500;
+    transform: translateY(-1px);
+}
+
+.admin-footer {
+    text-align: center;
+    margin-top: 22px;
+}
+
+.admin-footer a {
+    color: #888;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.admin-footer a:hover {
+    color: #ffff00;
+}

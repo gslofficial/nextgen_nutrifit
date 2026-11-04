@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — NextGen NutriFit</title>
+    <link rel="stylesheet" href="css_file/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="admin-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="./photo/photo1.png" alt="" onerror="this.style.display='none'">
+            <h1>NextGen <span>NutriFit</span></h1>
+        </div>
+        <p class="sidebar-tag">Admin Console</p>
+
+        <nav class="sidebar-nav">
+            <button class="nav-item active" data-section="foods">
+                <i class="fa-solid fa-drumstick-bite"></i> Food Diary
+            </button>
+            <button class="nav-item" data-section="exercises">
+                <i class="fa-solid fa-dumbbell"></i> Exercises
+            </button>
+            <button class="nav-item" data-section="users">
+                <i class="fa-solid fa-users"></i> Users
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="admin-identity" id="adminIdentity">Loading…</div>
+            <button id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- FOODS SECTION -->
+        <section class="content-section active" id="section-foods">
+            <div class="section-header">
+                <div>
+                    <h2>Food diary items</h2>
+                    <p class="section-sub">These items appear on the food diary page for every member.</p>
+                </div>
+                <button class="btn-primary" id="addFoodBtn"><i class="fa-solid fa-plus"></i> Add food</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th><th>Type</th><th>Group</th><th>Kcal</th>
+                            <th>Protein</th><th>Carbs</th><th>Fat</th><th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="foodsTableBody"></tbody>
+                </table>
+                <p class="empty-msg hidden" id="foodsEmpty">No food items yet — add your first one.</p>
+            </div>
+        </section>
+
+        <!-- EXERCISES SECTION -->
+        <section class="content-section" id="section-exercises">
+            <div class="section-header">
+                <div>
+                    <h2>Exercise library</h2>
+                    <p class="section-sub">These entries populate the Home, Gym, and Yoga tabs on the exercise page.</p>
+                </div>
+                <button class="btn-primary" id="addExerciseBtn"><i class="fa-solid fa-plus"></i> Add exercise</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th><th>Category</th><th>Group</th><th>Muscle</th>
+                            <th>Type</th><th>Sets</th><th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="exercisesTableBody"></tbody>
+                </table>
+                <p class="empty-msg hidden" id="exercisesEmpty">No exercises yet — add your first one.</p>
+            </div>
+        </section>
+
+        <!-- USERS SECTION -->
+        <section class="content-section" id="section-users">
+            <div class="section-header">
+                <div>
+                    <h2>Registered users</h2>
+                    <p class="section-sub">Edit member details or manage admin access.</p>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Full name</th><th>Email</th><th>Age</th><th>Gender</th><th>Role</th><th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody"></tbody>
+                </table>
+                <p class="empty-msg hidden" id="usersEmpty">No registered users yet.</p>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- FOOD MODAL -->
+<div class="modal-backdrop hidden" id="foodModalBackdrop">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="foodModalTitle">Add food item</h3>
+            <button class="modal-close" data-close="foodModalBackdrop">&times;</button>
+        </div>
+        <form id="foodForm">
+            <input type="hidden" id="foodId">
+            <div class="form-grid">
+                <label>Name<input type="text" id="foodName" required></label>
+                <label>Type
+                    <select id="foodType" required>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Non-Vegetarian">Non-Vegetarian</option>
+                    </select>
+                </label>
+                <label>Group<input type="text" id="foodGroup" placeholder="e.g. Grain, Fruit, Protein" required></label>
+                <label>Kcal (per 100g)<input type="number" step="0.1" id="foodKcal" required></label>
+                <label>Protein (g)<input type="number" step="0.1" id="foodProtein"></label>
+                <label>Carbs (g)<input type="number" step="0.1" id="foodCarbs"></label>
+                <label>Fat (g)<input type="number" step="0.1" id="foodFat"></label>
+                <label>Fiber (g)<input type="number" step="0.1" id="foodFiber"></label>
+                <label>Sugar (g)<input type="number" step="0.1" id="foodSugar"></label>
+                <label>Image path<input type="text" id="foodImage" placeholder="./foodphoto/example.png"></label>
+                <label>Emoji fallback<input type="text" id="foodEmoji" placeholder="🍽️"></label>
+            </div>
+            <p class="form-error" id="foodFormError"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" data-close="foodModalBackdrop">Cancel</button>
+                <button type="submit" class="btn-primary">Save food</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- EXERCISE MODAL -->
+<div class="modal-backdrop hidden" id="exerciseModalBackdrop">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="exerciseModalTitle">Add exercise</h3>
+            <button class="modal-close" data-close="exerciseModalBackdrop">&times;</button>
+        </div>
+        <form id="exerciseForm">
+            <input type="hidden" id="exerciseDocId">
+            <div class="form-grid">
+                <label>Exercise ID (unique, no spaces)<input type="text" id="exerciseSlug" placeholder="e.g. barbell-squat" required></label>
+                <label>Name<input type="text" id="exerciseName" required></label>
+                <label>Category
+                    <select id="exerciseCat" required>
+                        <option value="home">Home</option>
+                        <option value="gym">Gym</option>
+                        <option value="yoga">Yoga</option>
+                    </select>
+                </label>
+                <label>Muscle group label<input type="text" id="exerciseMuscle" placeholder="e.g. Chest / triceps" required></label>
+                <label>Gym body group (only for Gym)<input type="text" id="exerciseGroup" placeholder="legs, chest, back, arms..."></label>
+                <label>Movement pattern<input type="text" id="exercisePattern" placeholder="squat, press, core, cardio..."></label>
+                <label>Tracking type
+                    <select id="exerciseType" required>
+                        <option value="reps">Reps</option>
+                        <option value="hold">Timed hold</option>
+                    </select>
+                </label>
+                <label>Sets<input type="number" id="exerciseSets" value="3"></label>
+                <label>Reps (if reps type)<input type="number" id="exerciseReps"></label>
+                <label>Hold seconds (if hold type)<input type="number" id="exerciseHold"></label>
+                <label>Rest seconds<input type="number" id="exerciseRest" value="30"></label>
+                <label>Video path<input type="text" id="exerciseVideo" placeholder="exercise_video/example.mp4"></label>
+            </div>
+            <label class="full-width">Form cues (one per line)
+                <textarea id="exerciseCues" rows="4" placeholder="Feet shoulder-width apart&#10;Keep your back straight"></textarea>
+            </label>
+            <p class="form-error" id="exerciseFormError"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" data-close="exerciseModalBackdrop">Cancel</button>
+                <button type="submit" class="btn-primary">Save exercise</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- USER EDIT MODAL -->
+<div class="modal-backdrop hidden" id="userModalBackdrop">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Edit user</h3>
+            <button class="modal-close" data-close="userModalBackdrop">&times;</button>
+        </div>
+        <form id="userForm">
+            <input type="hidden" id="userId">
+            <div class="form-grid">
+                <label>Full name<input type="text" id="userFullName" required></label>
+                <label>Address<input type="text" id="userAddress"></label>
+                <label>Age<input type="number" id="userAge"></label>
+                <label>Gender<input type="text" id="userGender"></label>
+                <label>Role
+                    <select id="userRole">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </label>
+            </div>
+            <p class="form-error" id="userFormError"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" data-close="userModalBackdrop">Cancel</button>
+                <button type="submit" class="btn-primary">Save user</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="javascript/admin.js"></script>
+</body>
+</html>

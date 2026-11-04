@@ -1,160 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextGen Gym - Nutrition Tracker</title>
-    <link rel="stylesheet" href="tracker.css">
-    <link rel="stylesheet" href="https://cloudflare.com">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NextGen NutriFit Health Tracker - evidence-based calorie, BMI, macro, fiber and water targets.">
+  <title>NextGen NutriFit | Health Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css_file/tracker.css">
 </head>
 <body>
 
-<header>
-    <nav>
-        <div class="logo">NextGen <span>NutriFit</span></div>
-        <ul>
-            <!-- <li><a href="homepage.html">Home</a></li> -->
-            <li><a href="#" class="active">Nutrient Tracker</a></li>
-            <!-- <li><a href="">Trainers</a></li> -->
-        </ul>
-        <button class="back-btn" onclick="window.location.href='homepage.html'">Back to Dashboard</button>
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="homepage.html#home"><span>NextGen</span> NutriFit</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#calculator" class="active">Nutrient Tracker</a>
+        <a href="#history">My Progress</a>
+        <a href="#sources">Sources</a>
+        <a href="#legal">Disclaimer</a>
+      </div>
+      <a class="nav-cta" href="homepage.html">Back to Dashboard</a>
     </nav>
-</header>
+  </header>
 
-<div class="tracker-container">
-    <!-- LEFT PANEL: USER INPUT FORM -->
-    <div class="input-card">
-        <h2>Log Daily Metrics</h2>
-        <form id="healthForm">
-            <div class="form-row">
-                <div class="input-group">
-                    <label>Weight (kg)</label>
-                    <input type="number" id="weight" step="0.1" placeholder="e.g., 70" required>
-                </div>
-                <div class="input-group">
-                    <label>Height (cm)</label>
-                    <input type="number" id="height" step="0.1" placeholder="e.g., 175" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="input-group">
-                    <label>Age (years)</label>
-                    <input type="number" id="age" placeholder="e.g., 25" required>
-                </div>
-                <div class="input-group">
-                    <label>Daily Activity Level</label>
-                    <select id="activity" required style="background:#1a1a1a; border:1px solid #333; border-radius:6px; padding:12px; color:#fff; font-size:0.95rem; outline:none;">
-                        <option value="1.0">Sedentary (No Exercise)</option>
-                        <option value="1.2" selected>Lightly Active (Gym 1-3 days/wk)</option>
-                        <option value="1.4">Moderately Active (Gym 3-5 days/wk)</option>
-                        <option value="1.6">Very Active (Heavy Training)</option>
-                    </select>
-                </div>
-            </div>
-
-            <button type="submit" class="calc-btn">CALCULATE & SAVE TARGETS</button>
-        </form>
-    </div>
-
-    <!-- RIGHT PANEL: CALORIES AND MACROS LAYOUT -->
-    <div class="results-card">
-        <h2>Daily Maintenance Targets</h2>
-        
-        <div class="metrics-grid">
-            <!-- CALORIES BLOCK -->
-            <div class="metric-box special-box">
-                <i class="fa-solid fa-fire-flame-curved"></i>
-                <h3>Total Energy Intake</h3>
-                <div class="value" id="kcalVal">--</div>
-                <div class="status">Calories (kcal) / Day</div>
-            </div>
-
-            <!-- MACROS SPLIT -->
-            <div class="macro-row">
-                <div class="metric-box">
-                    <i class="fa-solid fa-egg" style="color: #ffff00;"></i>
-                    <h3>Protein</h3>
-                    <div class="value" id="proteinVal">--</div>
-                    <div class="status">For Muscle Repair</div>
-                </div>
-
-                <div class="metric-box">
-                    <i class="fa-solid fa-cheese" style="color: #ffff00;"></i>
-                    <h3>Healthy Fats</h3>
-                    <div class="value" id="fatVal">--</div>
-                    <div class="status">For Healthy Hormones</div>
-                </div>
-            </div>
-
-            <div class="macro-row">
-                <div class="metric-box">
-                    <i class="fa-solid fa-wheat-awn" style="color: #ffff00;"></i>
-                    <h3>Carbohydrates</h3>
-                    <div class="value" id="carbsVal">--</div>
-                    <div class="status">For Sustainable Energy</div>
-                </div>
-
-                <div class="metric-box">
-                    <i class="fa-solid fa-apple-whole" style="color: #ffff00;"></i>
-                    <h3>Dietary Fiber</h3>
-                    <div class="value" id="fiberVal">--</div>
-                    <div class="status">For Gut Health</div>
-                </div>
-            </div>
-
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero container">
+      <div class="hero-copy">
+        <span class="section-kicker">HEALTH TRACKER</span>
+        <h1>Know your <em>numbers.</em></h1>
+        <p>Calories, BMI, macros, fiber and water targets calculated with equations published in peer-reviewed research and used by international health bodies. Educational estimates, not medical advice.</p>
+        <div class="hero-stats">
+          <div><strong>Mifflin-St Jeor</strong><span>Energy equation</span></div>
+          <div><strong>WHO</strong><span>BMI categories</span></div>
+          <div><strong>DRI / AMDR</strong><span>Macro ranges</span></div>
         </div>
+      </div>
+    </section>
+
+    <!-- ================= CALCULATOR ================= -->
+    <section class="section container" id="calculator">
+      <div class="section-head">
+        <div><span class="section-kicker">DAILY TARGETS</span><h2>Log your daily metrics</h2></div>
+        <p>Enter your details to get a science-based starting point. Every result lists the guideline it comes from.</p>
+      </div>
+
+      <div class="tracker-grid">
+        <!-- LEFT: FORM -->
+        <div class="card input-card">
+          <div class="card-top">
+            <h3><i class="fa-solid fa-sliders"></i> Your details</h3>
+            <button type="button" class="link-btn" id="loadLast">Use last entry</button>
+          </div>
+
+          <form id="healthForm" novalidate>
+            <div class="field-group">
+              <span class="field-label">Units</span>
+              <div class="seg" id="unitSeg">
+                <button type="button" class="seg-btn active" data-unit="metric">Metric (kg, cm)</button>
+                <button type="button" class="seg-btn" data-unit="imperial">Imperial (lb, ft)</button>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <span class="field-label">Sex <small>(used in the BMR equation)</small></span>
+              <div class="seg" id="sexSeg">
+                <button type="button" class="seg-btn active" data-sex="male">Male</button>
+                <button type="button" class="seg-btn" data-sex="female">Female</button>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field-group">
+                <label class="field-label" for="age">Age (years)</label>
+                <input type="number" id="age" min="18" max="80" placeholder="e.g., 25" inputmode="numeric">
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="weight">Weight (<span id="weightUnit">kg</span>)</label>
+                <input type="number" id="weight" step="0.1" placeholder="e.g., 70" inputmode="decimal">
+              </div>
+            </div>
+
+            <div class="field-group" id="heightMetric">
+              <label class="field-label" for="height">Height (cm)</label>
+              <input type="number" id="height" step="0.1" placeholder="e.g., 175" inputmode="decimal">
+            </div>
+            <div class="form-row hidden" id="heightImperial">
+              <div class="field-group">
+                <label class="field-label" for="heightFt">Height (ft)</label>
+                <input type="number" id="heightFt" min="3" max="7" placeholder="e.g., 5" inputmode="numeric">
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="heightIn">Height (in)</label>
+                <input type="number" id="heightIn" min="0" max="11.9" step="0.1" placeholder="e.g., 9" inputmode="decimal">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="activity">Daily activity level</label>
+              <select id="activity">
+                <option value="1.2">Sedentary (little or no exercise)</option>
+                <option value="1.375" selected>Lightly active (gym 1-3 days/week)</option>
+                <option value="1.55">Moderately active (gym 3-5 days/week)</option>
+                <option value="1.725">Very active (hard training 6-7 days/week)</option>
+                <option value="1.9">Extra active (athlete / physical job + training)</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="goal">Your goal</label>
+              <select id="goal">
+                <option value="maintain" selected>Maintain weight</option>
+                <option value="lose">Lose fat gradually</option>
+                <option value="gain">Build muscle (lean gain)</option>
+              </select>
+            </div>
+
+            <label class="check"><input type="checkbox" id="asianCut"> <span>Use Asian-population BMI cut-offs <small>(WHO Expert Consultation, 2004)</small></span></label>
+            <label class="check"><input type="checkbox" id="special"> <span>I am pregnant, breastfeeding, under 18, or manage a medical condition that affects diet <small>(e.g. diabetes, kidney disease, eating disorder)</small></span></label>
+            <label class="check"><input type="checkbox" id="consent"> <span>I have read the <a href="#legal">disclaimer</a> and understand these are educational estimates, not medical advice.</span></label>
+
+            <p class="form-error" id="formError" role="alert"></p>
+
+            <button type="submit" class="btn btn-primary btn-block">Calculate &amp; save targets <span>→</span></button>
+            <button type="reset" class="btn btn-ghost btn-block" id="resetBtn">Reset</button>
+          </form>
+        </div>
+
+        <!-- RIGHT: RESULTS -->
+        <div class="card results-card">
+          <div class="card-top">
+            <h3><i class="fa-solid fa-chart-pie"></i> Daily targets</h3>
+            <button type="button" class="link-btn hidden" id="printBtn"><i class="fa-solid fa-print"></i> Print / save PDF</button>
+          </div>
+
+          <div class="empty-results" id="resultsEmpty">
+            <div class="empty-icon">🥗</div>
+            <h3>Your results will appear here</h3>
+            <p>Fill in the form and press calculate to see your calories, BMI, macros and more.</p>
+          </div>
+
+          <div id="resultsBody" class="hidden">
+            <!-- Calories -->
+            <div class="kcal-hero">
+              <div>
+                <span class="mini-label">Daily calorie target</span>
+                <div class="kcal-num"><strong id="resKcal">--</strong><small>kcal / day</small></div>
+                <p class="kcal-note" id="resGoalNote"></p>
+              </div>
+              <div class="kcal-side">
+                <div><span>BMR</span><b id="resBmr">--</b></div>
+                <div><span>Maintenance (TDEE)</span><b id="resTdee">--</b></div>
+              </div>
+            </div>
+
+            <!-- BMI -->
+            <div class="panel">
+              <div class="panel-head"><span class="mini-label">Body Mass Index (WHO)</span><b id="bmiVal">--</b></div>
+              <div class="bmi-bar" id="bmiBar" aria-hidden="true">
+                <span class="bmi-seg s1"></span><span class="bmi-seg s2"></span><span class="bmi-seg s3"></span><span class="bmi-seg s4"></span>
+                <i class="bmi-marker" id="bmiMarker"></i>
+              </div>
+              <div class="bmi-labels"><span>Under</span><span>Healthy</span><span>Over</span><span>Obese</span></div>
+              <p class="panel-text"><b id="bmiCat">--</b> &middot; <span id="bmiRange">--</span></p>
+            </div>
+
+            <!-- Macros -->
+            <div class="panel macro-panel">
+              <div class="donut" id="donut"><div class="donut-hole"><b id="donutKcal">--</b><small>kcal</small></div></div>
+              <div class="macro-list">
+                <div class="macro-item"><i class="dot dot-p"></i><div><span>Protein</span><b id="pGrams">--</b></div><em id="pPct">--</em></div>
+                <div class="macro-item"><i class="dot dot-c"></i><div><span>Carbohydrates</span><b id="cGrams">--</b></div><em id="cPct">--</em></div>
+                <div class="macro-item"><i class="dot dot-f"></i><div><span>Fat</span><b id="fGrams">--</b></div><em id="fPct">--</em></div>
+              </div>
+            </div>
+
+            <!-- Other targets -->
+            <div class="metric-grid">
+              <div class="metric"><i class="fa-solid fa-wheat-awn"></i><span>Dietary fiber</span><b id="fiberVal">--</b><small>IOM: 14 g per 1,000 kcal</small></div>
+              <div class="metric"><i class="fa-solid fa-droplet"></i><span>Total water</span><b id="waterVal">--</b><small>EFSA adequate intake (incl. food)</small></div>
+              <div class="metric"><i class="fa-solid fa-cubes-stacked"></i><span>Free sugars (max)</span><b id="sugarVal">--</b><small>WHO: under 10% of energy</small></div>
+              <div class="metric"><i class="fa-solid fa-bacon"></i><span>Saturated fat (max)</span><b id="satVal">--</b><small>WHO: under 10% of energy</small></div>
+              <div class="metric"><i class="fa-solid fa-bowl-rice"></i><span>Sodium (max)</span><b id="sodiumVal">2,000 mg</b><small>WHO: under 5 g salt / day</small></div>
+              <div class="metric"><i class="fa-solid fa-weight-scale"></i><span>Healthy weight range</span><b id="weightRange">--</b><small id="weightRangeNote">BMI 18.5 - 24.9</small></div>
+            </div>
+
+            <ul class="warn-list hidden" id="warnList"></ul>
+            <p class="result-foot" id="saveStatus"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HISTORY ================= -->
+    <section class="section container" id="history">
+      <div class="section-head">
+        <div><span class="section-kicker">MY PROGRESS</span><h2>Your saved entries</h2></div>
+        <p>Entries are stored in this browser so you can watch your weight and targets change over time.</p>
+      </div>
+      <div class="card history-card">
+        <div class="card-top">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> History</h3>
+          <button type="button" class="link-btn" id="clearHistory">Clear history</button>
+        </div>
+        <div class="history-grid">
+          <div class="spark-wrap">
+            <span class="mini-label">Weight trend</span>
+            <svg id="spark" viewBox="0 0 300 90" preserveAspectRatio="none" role="img" aria-label="Weight trend chart"></svg>
+            <small id="sparkNote">Save at least two entries to see a trend.</small>
+          </div>
+          <div class="table-wrap">
+            <table class="history-table">
+              <thead><tr><th>Date</th><th>Weight</th><th>BMI</th><th>kcal</th><th>P / C / F (g)</th></tr></thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+            <p class="empty-note" id="historyEmpty">No entries yet. Your first calculation will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SOURCES ================= -->
+    <section class="section container" id="sources">
+      <div class="section-head">
+        <div><span class="section-kicker">THE SCIENCE</span><h2>How the numbers are calculated</h2></div>
+        <p>Every formula and limit below comes from a published scientific or public-health source.</p>
+      </div>
+      <div class="tip-grid">
+        <article><span>01 &middot; ENERGY</span><h3>Mifflin-St Jeor + activity factor</h3>
+          <p>BMR = 10&times;kg + 6.25&times;cm &minus; 5&times;age + 5 (men) or &minus;161 (women). Multiplied by a physical-activity level (PAL) from 1.2 to 1.9, in line with FAO/WHO/UNU energy-requirement reports. Fat loss uses a moderate deficit (up to 500 kcal, max 20%); lean gain adds 300 kcal. Floors of 1,500 kcal (men) / 1,200 kcal (women) are applied.</p></article>
+        <article><span>02 &middot; BODY SIZE</span><h3>WHO BMI categories</h3>
+          <p>Under 18.5 underweight, 18.5-24.9 healthy, 25-29.9 overweight, 30+ obese. An optional Asian-population set (23 and 27.5) follows the WHO Expert Consultation (Lancet, 2004). BMI is a screening tool and does not measure body fat or muscle.</p></article>
+        <article><span>03 &middot; MACROS</span><h3>IOM AMDR + ISSN protein</h3>
+          <p>Protein, carbohydrate and fat are kept within the Acceptable Macronutrient Distribution Ranges (protein 10-35%, carbohydrate 45-65%, fat 20-35% of energy). Protein per kg ranges from 0.8 g (RDA) to 2.0 g (ISSN position stand for exercising adults), based on your activity.</p></article>
+        <article><span>04 &middot; FIBER &amp; WATER</span><h3>IOM fiber, EFSA water</h3>
+          <p>Fiber: 14 g per 1,000 kcal (IOM Dietary Reference Intakes). Water: 2.5 L/day for men and 2.0 L/day for women as total water from drinks and food (EFSA adequate intake). Needs rise in heat and with heavy exercise.</p></article>
+        <article><span>05 &middot; LIMITS</span><h3>WHO healthy-diet limits</h3>
+          <p>Free sugars under 10% of energy (under 5% gives extra benefit), saturated fat under 10% of energy, and sodium under 2 g/day (about 5 g salt).</p></article>
+        <article><span>06 &middot; REFERENCES</span><h3>Read the originals</h3>
+          <p class="ref-links">
+            <a href="https://doi.org/10.1093/ajcn/51.2.241" target="_blank" rel="noopener">Mifflin et al., Am J Clin Nutr 1990 ↗</a>
+            <a href="https://www.fao.org/4/y5686e/y5686e00.htm" target="_blank" rel="noopener">FAO/WHO/UNU Human Energy Requirements ↗</a>
+            <a href="https://doi.org/10.1016/S0140-6736(03)15268-3" target="_blank" rel="noopener">WHO Expert Consultation, Lancet 2004 ↗</a>
+            <a href="https://nap.nationalacademies.org/catalog/10490" target="_blank" rel="noopener">NASEM Dietary Reference Intakes (Macronutrients) ↗</a>
+            <a href="https://doi.org/10.1186/s12970-017-0177-8" target="_blank" rel="noopener">ISSN Protein Position Stand, 2017 ↗</a>
+            <a href="https://doi.org/10.2903/j.efsa.2010.1459" target="_blank" rel="noopener">EFSA Water Opinion, 2010 ↗</a>
+            <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener">WHO Healthy Diet Fact Sheet ↗</a>
+          </p></article>
+      </div>
+    </section>
+
+    <!-- ================= LEGAL ================= -->
+    <section class="section container" id="legal">
+      <div class="about-card legal-card">
+        <div>
+          <span class="section-kicker">IMPORTANT</span>
+          <h2>Disclaimer &amp; privacy</h2>
+        </div>
+        <div class="legal-text">
+          <p><strong>Not medical advice.</strong> This tool provides general educational estimates only. It is not a medical device and does not diagnose, treat, cure or prevent any condition. Results do not create a doctor-patient or dietitian-client relationship.</p>
+          <p><strong>Talk to a professional first</strong> if you are pregnant or breastfeeding, under 18, over 80, underweight, have or have had an eating disorder, or live with diabetes, kidney, heart or liver disease, or take medication that affects appetite or weight. Seek urgent care for any medical emergency; do not rely on this page.</p>
+          <p><strong>Accuracy.</strong> Predictive equations can differ from your real needs by 10% or more. Use the numbers as a starting point and adjust with real-world results. The service is provided &ldquo;as is&rdquo; without warranties, and NextGen NutriFit is not liable for decisions made from these estimates.</p>
+          <p><strong>Your data.</strong> Entries are saved in your browser (local storage). If you are signed in, calculated values are also sent to your account database so they are available on your dashboard. You can delete browser history at any time with the Clear history button.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><a class="brand" href="homepage.html#home"><span>NextGen</span> NutriFit</a><p>Food &bull; Fitness &bull; Everyday Life</p></div>
+      <div><h4>Quick Links</h4><a href="#calculator">Calculator</a><a href="#history">My Progress</a><a href="#sources">Sources</a></div>
+      <div><h4>Explore</h4><a href="fooddairy.html">Food &amp; Nutrition</a><a href="exercise.html">Exercise Library</a><a href="homepage.html">Dashboard</a></div>
+      <div><h4>Disclaimer</h4><p>Educational information only. Not a substitute for professional medical advice, diagnosis or treatment.</p></div>
     </div>
-</div>
+    <div class="copyright">&copy; <span id="year"></span> NextGen NutriFit. Built as a responsive health portal.</div>
+  </footer>
 
-<script>
-    document.getElementById('healthForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-        const w = parseFloat(document.getElementById('weight').value);
-        const h = parseFloat(document.getElementById('height').value);
-        const age = parseInt(document.getElementById('age').value);
-        const activityFactor = parseFloat(document.getElementById('activity').value);
-
-        // --- NUTRITIONAL MATHEMATICS ---
-        const baseKcal = w * 24;
-        const totalKcal = baseKcal * activityFactor;
-        
-        const proteinGrams = w * 1.6;
-        const fatGrams = w * 0.7;
-        const fiberGrams = (totalKcal / 1000) * 14;
-        
-        const carbsGrams = (totalKcal - ((proteinGrams * 4) + (fatGrams * 9))) / 4;
-
-        // Render targets to user layout blocks
-        document.getElementById('kcalVal').innerText = Math.round(totalKcal);
-        document.getElementById('proteinVal').innerText = Math.round(proteinGrams) + "g";
-        document.getElementById('fatVal').innerText = Math.round(fatGrams) + "g";
-        document.getElementById('carbsVal').innerText = Math.round(carbsGrams) + "g";
-        document.getElementById('fiberVal').innerText = Math.round(fiberGrams) + "g";
-
-        // Save entry directly to MongoDB
-        try {
-            const response = await fetch('/auth/health-log', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    weight: w, 
-                    height: h, 
-                    calories: Math.round(totalKcal), 
-                    protein: Math.round(proteinGrams),
-                    fats: Math.round(fatGrams),
-                    carbs: Math.round(carbsGrams),
-                    fiber: Math.round(fiberGrams)
-                })
-            });
-            if (response.ok) {
-                alert("Nutrition targets successfully calculated and saved! 💾");
-            }
-        } catch (err) {
-            alert("Calculated locally, but could not sync with database.");
-        }
-    });
-</script>
+  <script src="javascript/healthtracker.js"></script>
 </body>
 </html>

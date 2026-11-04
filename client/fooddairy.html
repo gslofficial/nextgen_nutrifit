@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NutriLife Food Portal - vegetarian, non-vegetarian and mixed food nutrition information.">
+  <title>NutriLife | Food & Nutrition Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css_file/fooddairy.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="homepage.html#home"><span>NextGen</span> NutriFit</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="homepage.html#home">Home</a>
+        <!-- <a href="#calculator">Nutri-Calculator</a> -->
+        <a href="#categories">Nutri-Categories</a>
+        <a href="#about">About</a>
+      </div>
+      <a class="nav-cta" href="#calculator">Check Nutrition</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="categories section container" id="categories">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">FOOD PORTALS</span>
+          <h2>Choose your food world</h2>
+        </div>
+        <p>Browse foods by dietary category, then open any card for a gram-based calculation.</p>
+      </div>
+      <div class="category-grid">
+        <button class="category-card vegetarian" data-category-jump="Vegetarian">
+          <div class="cat-icon">🌱</div><div><span>01</span><h3>Vegetarian</h3><p>Fruits, vegetables, grains, pulses, dairy, nuts & more.</p></div><b>→</b>
+        </button>
+        <button class="category-card nonveg" data-category-jump="Non-Vegetarian">
+          <div class="cat-icon">🍗</div><div><span>02</span><h3>Non-Vegetarian</h3><p>Eggs, chicken, fish and other everyday animal foods.</p></div><b>→</b>
+        </button>
+        <button class="category-card mixed" data-category-jump="Mixed">
+          <div class="cat-icon">🥘</div><div><span>03</span><h3>Mixed Portal</h3><p>Search and compare the complete food collection.</p></div><b>→</b>
+        </button>
+      </div>
+    </section>
+
+    <section class="featured section container">
+      <div class="section-head">
+        <div><span class="section-kicker">SMART CHOICES</span><h2>Everyday nutrition</h2></div>
+        <p>Use the values as food-composition information, not as a personalized medical diet.</p>
+      </div>
+      <div class="feature-strip">
+        <div><span>💪</span><div><b>Protein</b><small>Building & maintaining body tissues</small></div></div>
+        <div><span>⚡</span><div><b>Energy</b><small>Food energy shown in kcal</small></div></div>
+        <div><span>🌾</span><div><b>Fiber</b><small>Found in many plant foods</small></div></div>
+        <div><span>🥑</span><div><b>Healthy variety</b><small>Mix food groups across meals</small></div></div>
+      </div>
+    </section>
+
+    <section class="foods section container" id="foods">
+      <div class="section-head foods-head">
+        <div><span class="section-kicker">OUR FOOD COLLECTION</span><h2>Explore foods</h2></div>
+        <div class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search rice, apple, chicken..." autocomplete="off"></div>
+      </div>
+      <div class="filter-row" id="filterRow">
+        <button class="filter active" data-filter="All">All</button>
+        <button class="filter" data-filter="Vegetarian">🌱 Vegetarian</button>
+        <button class="filter" data-filter="Non-Vegetarian">🍗 Non-Vegetarian</button>
+        <button class="filter" data-filter="Fruit">🍎 Fruits</button>
+        <button class="filter" data-filter="Vegetable">🥦 Vegetables</button>
+        <button class="filter" data-filter="Grain">🌾 Grains</button>
+        <button class="filter" data-filter="Pulse">🫘 Pulses</button>
+        <button class="filter" data-filter="Dairy">🥛 Dairy</button>
+        <button class="filter" data-filter="Nut/Seed">🥜 Nuts & Seeds</button>
+      </div>
+      <div class="results-info"><span id="resultsCount"></span><button id="clearSearch">Clear filters</button></div>
+      <div class="food-grid" id="foodGrid"></div>
+      <div class="empty-state hidden" id="emptyState">
+        <div>🔎</div><h3>No food found</h3><p>Try another food name or category.</p>
+      </div>
+    </section>
+
+    <section class="calculator section" id="calculator">
+      <div class="container calc-wrap">
+        <div class="calc-intro">
+          <span class="section-kicker">GRAM-BASED CALCULATOR</span>
+          <h2>How much are you eating?</h2>
+          <p>Select a food and enter the amount in grams. The calculator scales the nutrition values from the food's 100 g reference.</p>
+          <div class="calc-note">ⓘ Values are estimates for the selected food record. Preparation method and food variety can change nutrient values.</div>
+        </div>
+        <div class="calculator-card">
+          <div class="calc-top">
+            <div class="calc-food-icon" id="calcIcon">🍚</div>
+            <div><span>SELECT FOOD</span><select id="foodSelect"></select></div>
+          </div>
+          <label class="gram-label" for="grams">Amount <b><span id="gramDisplay">100</span> g</b></label>
+          <input class="range" id="grams" type="range" min="10" max="1000" step="10" value="100">
+          <div class="range-labels"><span>10 g</span><span>500 g</span><span>1000 g</span></div>
+          <div class="nutrient-main"><span>Energy</span><strong id="calcCalories">130</strong><small>kcal</small></div>
+          <div class="nutrient-grid">
+            <div><span>Protein</span><b id="calcProtein">2.7 g</b></div>
+            <div><span>Carbohydrates</span><b id="calcCarbs">28.2 g</b></div>
+            <div><span>Fat</span><b id="calcFat">0.3 g</b></div>
+            <div><span>Fiber</span><b id="calcFiber">0.4 g</b></div>
+            <div><span>Sugars</span><b id="calcSugar">0.1 g</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tips section container">
+      <div class="section-head"><div><span class="section-kicker">FOOD KNOWLEDGE</span><h2>Build a varied plate</h2></div></div>
+      <div class="tip-grid">
+        <article><span>01</span><h3>Choose variety</h3><p>Include different food groups and colors rather than relying on one food every day.</p></article>
+        <article><span>02</span><h3>Check the amount</h3><p>Nutrition numbers depend on the quantity eaten. Use the gram calculator to compare amounts.</p></article>
+        <article><span>03</span><h3>Prefer minimally processed foods</h3><p>For everyday meals, include vegetables, fruits, whole grains, pulses, nuts and appropriate protein sources.</p></article>
+      </div>
+    </section>
+
+    <section class="about section container" id="about">
+      <div class="about-card">
+        <div><span class="section-kicker">ABOUT NUTRILIFE</span><h2>Nutrition information made simple.</h2></div>
+        <p>NutriLife is a front-end educational food portal. The starter food values in this demo are organized around a 100 g reference so the calculator can scale them to the selected amount.</p>
+        <p>For a production version, connect the portal to <strong>USDA FoodData Central</strong> or import a properly licensed food-composition dataset. FoodData Central provides food search and food-detail API endpoints and its data are public domain (CC0 1.0). <a href="https://fdc.nal.usda.gov/" target="_blank" rel="noopener">View FoodData Central ↗</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><a class="brand" href="home.html#home"><span>✦</span> NutriLife</a><p>Food • Nutrition • Everyday Life</p></div>
+      <div><h4>Quick Links</h4><a href="#foods">Foods</a><a href="#calculator">Calculator</a><a href="#categories">Categories</a></div>
+      <div><h4>Reference</h4><a href="https://fdc.nal.usda.gov/" target="_blank" rel="noopener">USDA FoodData Central</a><a href="https://fdc.nal.usda.gov/api-guide/" target="_blank" rel="noopener">FoodData Central API Guide</a></div>
+      <div><h4>Disclaimer</h4><p>Food values can vary by variety, brand and preparation. This site is for educational information.</p></div>
+    </div>
+    <div class="copyright">© <span id="year"></span> NutriLife. Built as a responsive nutrition portal.</div>
+  </footer>
+
+  <script src="javascript/fooddairy.js"></script>
+</body>
+</html>

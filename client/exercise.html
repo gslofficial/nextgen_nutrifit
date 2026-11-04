@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise Library — NextGen NutriFit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" href="css_file/exercise.css"> 
+</head> 
+<body> 
+ 
+<header class="site-header"> 
+  <div class="header-inner"> 
+    <a class="logo" href="#top"> 
+      <!-- <span class="logo-mark" aria-hidden="true"> 
+        <svg viewBox="0 0 40 40" width="30" height="30"> 
+          <path d="M8 24 L8 16 L14 16 L14 10 L20 10 L20 30 L26 30 L26 16 L32 16 L32 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/> 
+        </svg> 
+      </span>  -->
+      NextGen <em>NutriFit</em> 
+    </a> 
+    <nav class="main-nav" aria-label="Primary"> 
+      <a href="homepage.html">Home</a> 
+      <a href="#gym-workouts">Gym</a> 
+      <a href="#yoga">Yoga</a> 
+    </nav> 
+    <div class="header-stat" aria-hidden="true"> 
+      <span class="header-stat-num" id="totalExerciseCount">0</span> 
+      <span class="header-stat-label">movements logged</span> 
+    </div> 
+  </div> 
+</header> 
+ 
+<main id="top"> 
+ 
+  <!-- HERO --> 
+  <section class="hero"> 
+    <div class="hero-inner"> 
+      <div class="hero-text"> 
+        <p class="hero-kicker">Exercise library</p> 
+        <h1>Every rep counted.<br>Every rest earned.</h1> 
+        <p class="hero-sub">Pick a movement, follow the motion cue, and let the built-in pacer count your reps and time your rest — whether you're on the living-room floor or under the bar.</p> 
+        <div class="hero-actions"> 
+          <a href="#home-workouts" class="btn btn-primary">No equipment, start now</a> 
+          <a href="#gym-workouts" class="btn btn-ghost">Browse the gym floor</a> 
+        </div> 
+      </div> 
+      <div class="hero-demo"> 
+        <div class="hero-demo-frame"> 
+          <video class="hero-demo-video" src="exercise_video/Excercisedemo.mp4" autoplay muted loop playsinline></video> 
+          <span class="hero-demo-tag">Exercise -reference motion</span> 
+        </div> 
+      </div> 
+    </div> 
+  </section> 
+ 
+  <!-- HOME WORKOUTS --> 
+  <section class="section" id="home-workouts"> 
+    <div class="section-head"> 
+      <h2>Home workouts</h2> 
+      <p>No bench, no rack, no problem. Bodyweight and cardio movements you can run through in the space of a yoga mat.</p> 
+    </div> 
+    <div class="card-grid" id="homeGrid"></div> 
+  </section> 
+ 
+  <!-- GYM WORKOUTS --> 
+  <section class="section section-alt" id="gym-workouts"> 
+    <div class="section-head"> 
+      <h2>Gym workouts</h2> 
+      <p>Full-body coverage, sorted by the muscle you're training today.</p> 
+    </div> 
+    <div class="chip-row" id="muscleChips" role="tablist" aria-label="Muscle group"></div> 
+    <div class="card-grid" id="gymGrid"></div> 
+  </section> 
+ 
+  <!-- YOGA --> 
+  <section class="section" id="yoga"> 
+    <div class="section-head"> 
+      <h2>Yoga</h2> 
+      <p>Slow, held movements for mobility and breath. Timed holds, no rep counting.</p> 
+    </div> 
+    <div class="card-grid" id="yogaGrid"></div> 
+  </section> 
+ 
+</main> 
+ 
+<footer class="site-footer"> 
+  <p>NextGen NutriFit — train with intent.</p> 
+</footer> 
+ 
+<!-- WORKOUT PLAYER MODAL --> 
+<div class="modal-backdrop" id="modalBackdrop"> 
+  <div class="player" role="dialog" aria-modal="true" aria-labelledby="playerTitle"> 
+    <button class="player-close" id="playerClose" aria-label="Close">✕</button> 
+ 
+    <div class="player-media"> 
+      <video id="playerVideo" class="player-video" muted loop playsinline hidden></video> 
+      <svg id="playerIcon" class="player-icon" viewBox="0 0 200 200" aria-hidden="true"></svg> 
+    </div> 
+ 
+    <div class="player-body"> 
+      <p class="player-muscle" id="playerMuscle">Muscle group</p> 
+      <h3 id="playerTitle">Exercise name</h3> 
+      <ul class="player-cues" id="playerCues"></ul> 
+ 
+      <div class="player-config" id="playerConfig"> 
+        <label class="config-field"> 
+          <span>Sets</span> 
+          <div class="stepper"> 
+            <button type="button" data-step="sets" data-dir="-1">–</button> 
+            <output id="setsOut">3</output> 
+            <button type="button" data-step="sets" data-dir="1">+</button> 
+          </div> 
+        </label> 
+        <label class="config-field" id="repsField"> 
+          <span id="repsFieldLabel">Reps</span> 
+          <div class="stepper"> 
+            <button type="button" data-step="reps" data-dir="-1">–</button> 
+            <output id="repsOut">12</output> 
+            <button type="button" data-step="reps" data-dir="1">+</button> 
+          </div> 
+        </label> 
+        <label class="config-field"> 
+          <span>Rest</span> 
+          <div class="stepper"> 
+            <button type="button" data-step="rest" data-dir="-1">–</button> 
+            <output id="restOut">30s</output> 
+            <button type="button" data-step="rest" data-dir="1">+</button> 
+          </div> 
+        </label> 
+      </div> 
+ 
+      <div class="player-run" id="playerRun" hidden> 
+        <p class="run-phase" id="runPhase">Set 1 of 3</p> 
+        <div class="run-display"> 
+          <span class="run-number" id="runNumber">0</span> 
+          <span class="run-unit" id="runUnit">reps</span> 
+        </div> 
+        <div class="run-bar"><div class="run-bar-fill" id="runBarFill"></div></div> 
+      </div> 
+ 
+      <div class="player-actions"> 
+        <button class="btn btn-primary btn-block" id="playerStart">Start workout</button> 
+        <button class="btn btn-ghost btn-block" id="playerStop" hidden>End early</button> 
+      </div> 
+    </div> 
+  </div> 
+</div> 
+ 
+<script src="javascript/exercise.js"></script> 
+</body> 
+</html> 
