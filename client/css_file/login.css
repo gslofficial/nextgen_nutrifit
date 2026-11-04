@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 *{
     margin:0;
     padding:0;
@@ -6,53 +8,51 @@
 }
 
 body{
-    height:100vh;
+    min-height:100vh;
+    min-height:100dvh;
     display:flex;
     justify-content:center;
     align-items:center;
+    padding:20px;
     background:#111;
     background-image: url(https://wallpapercave.com/wp/wp4436664.jpg);
-    background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
 }
 
 .container{
-     width: 366px;
-    height: 758px;
-    background: transparent;
+    width:100%;
+    max-width:366px;
+    min-height:600px;
+    background:transparent;
     position:relative;
-    left: -550px;
-    overflow:hidden;
     border-radius:30px;
-    
-    /* background-image:url(https://media.istockphoto.com/id/1779816282/photo/silhouette-of-a-strong-bodybuilder-confident-young-fitness-athlete-with-a-powerful-body-and.jpg?s=612x612&w=0&k=20&c=_TpkE425dPu6FrtRXxx0UHTwo17bp2Mb9A8zHcsv4G8=);
-      background-size: auto;
-    background-position: center bottom 1px;
-    background-attachment: fixed;
-    background-repeat: no-repeat; */
-    
+    padding:10px 0 50px;
+    display:flex;
+    flex-direction:column;
 }
 
 .logo{
     text-align:center;
-    margin-top:30px;
+    margin-top:10px;
 }
 
 .logo img{
-    width: 111px;
+    width:111px;
+    max-width:40%;
 }
 
 .logo h2{
-    font-size:40px;
+    font-size:clamp(28px, 8vw, 40px);
     color:#fff;
     margin-top:10px;
 }
+
 /* Signature yellow text accent highlight */
 .logo h2 span{
-    color: #ffff00;
+    color:#ffff00;
 }
-
 
 .content{
     margin-top:120px;
@@ -69,7 +69,7 @@ body{
 }
 
 .login-form{
-    margin-top:185px;
+    margin-top:60px;
 }
 
 .input-box{
@@ -86,24 +86,26 @@ body{
     margin-right:10px;
 }
 
-
 .input-box input{
-     width:100%;
-     
+    width:100%;
+    min-width:0;
     background:transparent;
     border:none;
     outline:none;
     color:white;
-    font-size:16px;
+    font-size:16px; /* 16px prevents iOS auto-zoom on focus */
 }
 
-input::placeholder {
-    color: white;
+input::placeholder{
+    color:white;
 }
+
 .buttons{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
     margin-top:20px;
 }
 
@@ -113,6 +115,7 @@ input::placeholder {
     border:1px solid white;
     padding:10px 18px;
     border-radius:25px;
+    white-space:nowrap;
 }
 
 button{
@@ -126,32 +129,54 @@ button{
     font-weight:bold;
 }
 
-.register-link {
-    text-align: center;
-    margin-top: 15px;
+.register-link{
+    text-align:center;
+    margin-top:20px;
 }
 
-.register-link p {
-    color: white;
-    font-size: 26px;
+.register-link p{
+    color:white;
+    font-size:clamp(15px, 4.5vw, 20px);
 }
 
-.register-link a {
-    color: #00d4ff;
-    text-decoration: none;
-    font-weight: bold;
-
+.register-link a{
+    color:#00d4ff;
+    text-decoration:none;
+    font-weight:bold;
 }
 
-.register-link a:hover {
-    text-decoration: underline;
+.register-link a:hover{
+    text-decoration:underline;
 }
 
 .footer{
     position:absolute;
-    bottom: 10px;
+    bottom:10px;
     left:50%;
     transform:translateX(-50%);
     font-size:12px;
     color:#ccc;
+    white-space:nowrap;
+}
+
+/* Desktop / large screens: keep the form on the left side */
+@media (min-width: 901px){
+    body{
+        justify-content:flex-start;
+        padding-left:8vw;
+        background-attachment:fixed;
+    }
+    .container{
+        min-height:700px;
+    }
+    .login-form{
+        margin-top:120px;
+    }
+}
+
+/* Small phones */
+@media (max-width: 400px){
+    .login-form{ margin-top:40px; }
+    button{ padding:12px 28px; font-size:16px; }
+    .forgot{ padding:10px 14px; font-size:14px; }
 }
