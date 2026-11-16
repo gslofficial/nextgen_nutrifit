@@ -39,25 +39,22 @@ npm install
 
 ## 3. Set your environment variables
 
-Set `MONGO_URI`, `APP_EMAIL` (the Gmail sender address), and `APP_PASS`
-(its Gmail App Password) in the root `.env`. Also set a strong
+Set `MONGO_URI`, `BREVO_API`, and `BREVO_FROM_EMAIL` in the root `.env`.
+`BREVO_FROM_NAME` defaults to `NextGen NutriFit`. Also set a strong
 `SESSION_SECRET`; never commit `.env` or put these values in frontend code.
 OTP and password reset email go to the address entered for the account.
 
 ### Email on Render
 
-The default `smtp` provider uses Gmail SMTP on port 465. Render's free web
-services block outbound SMTP ports, so registration OTP emails cannot be sent
-that way from a free Render service. Use Resend's HTTPS API for the deployed
-service:
+Email uses Brevo's transactional email API over HTTPS. In the Render service's
+**Environment** settings, add:
 
-1. Verify a sender domain in Resend and create a sending API key.
-2. In the Render service's **Environment** settings, set `EMAIL_PROVIDER` to
-   `resend`, `RESEND_API_KEY` to that key, and `RESEND_FROM_EMAIL` to a sender
-   address on the verified domain (for example, `NextGen NutriFit <verify@your-domain.com>`).
-3. Save and redeploy the service.
+1. `BREVO_API` — the Brevo API key.
+2. `BREVO_FROM_EMAIL` — a sender address verified and enabled for transactional email in Brevo.
+3. `BREVO_FROM_NAME` — for example, `NextGen NutriFit`.
 
-Leave `EMAIL_PROVIDER` unset locally to keep the existing Gmail SMTP behavior.
+Save the variables and redeploy. A successful API response means Brevo accepted
+the email for processing; it does not confirm arrival in the recipient's inbox.
 
 ## 4. Start the server
 

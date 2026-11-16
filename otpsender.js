@@ -1,48 +1,81 @@
-﻿const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const EMAIL = process.env.APP_EMAIL;
-const PASSWORD = process.env.APP_PASS;
-const EMAIL_PROVIDER = String(process.env.EMAIL_PROVIDER || 'smtp').trim().toLowerCase();
+const BREVO_EMAIL_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
+
+function createBrevoError(message, code, statusCode) {
+  const error = new Error(message);
+  error.code = code;
+  if (statusCode) error.statusCode = statusCode;
+  return error;
+}
 
 async function sendSystemMail(to, subject, htmlContent) {
   if (typeof to !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(to)) {
-    throw new Error('A valid recipient email address is required.');
+    throw createBrevoError('A valid recipient email address is required.', 'BREVO_INVALID_RECIPIENT');
   }
 
-  // Render's free web services block outbound SMTP ports. Use Resend's HTTPS
-  // API there; keep SMTP as the default so existing local setups still work.
-  if (EMAIL_PROVIDER === 'resend') {
-    const apiKey = process.env.RESEND_API_KEY;
-    const from = process.env.RESEND_FROM_EMAIL;
-    if (!apiKey || !from) {
-      throw new Error('Resend email configuration is missing. Set RESEND_API_KEY and RESEND_FROM_EMAIL.');
-    }
+  const apiKey = process.env.BREVO_API;
+  const senderEmail = process.env.BREVO_FROM_EMAIL;
+  const senderName = process.env.BREVO_FROM_NAME || 'NextGen NutriFit';
+  if (!apiKey || !senderEmail) {
+    throw createBrevoError(
+      'Brevo configuration is missing. Set BREVO_API and BREVO_FROM_EMAIL.',
+      'BREVO_CONFIGURATION_MISSING'
+    );
+  }
 
-    const { Resend } = require('resend');
-    const resend = new Resend(apiKey);
-    const { data, error } = await resend.emails.send({
-      from,
-      to: [to],
-      subject,
-      html: htmlContent
+  let response;
+  try {
+    response = await fetch(BREVO_EMAIL_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'api-key': apiKey,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        sender: { email: senderEmail, name: senderName },
+        to: [{ email: to }],
+        subject,
+        htmlContent
+      }),
+      signal: AbortSignal.timeout(15000)
     });
-    if (error) throw new Error(`Resend could not send email: ${error.message}`);
-    console.log(`Email successfully dispatched to ${to} via Resend.`);
-    return { success: true, id: data?.id };
+  } catch (error) {
+    const timedOut = error.name === 'TimeoutError' || error.name === 'AbortError';
+    throw createBrevoError(
+      timedOut ? 'Brevo email request timed out.' : 'Could not connect to the Brevo email API.',
+      timedOut ? 'BREVO_TIMEOUT' : 'BREVO_NETWORK_ERROR'
+    );
   }
 
-  if (EMAIL_PROVIDER !== 'smtp') {
-    throw new Error('EMAIL_PROVIDER must be either "smtp" or "resend".');
+  let result = null;
+  try {
+    result = await response.json();
+  } catch {
+    // A successful response must include Brevo's messageId before it is treated
+    // as accepted. Error responses are handled below without exposing their body.
   }
-  if (!EMAIL || !PASSWORD) throw new Error('Email sender configuration is missing.');
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com', port: 465, secure: true,
-    auth: { user: EMAIL, pass: PASSWORD }
-  });
-  const info = await transporter.sendMail({ from: `"NextGenNutriFit" <${EMAIL}>`, to, subject, html: htmlContent });
-  console.log(`Email successfully dispatched to ${to}: ${info.response}`);
-  return { success: true, response: info.response };
+
+  if (!response.ok) {
+    const code = response.status === 401 || response.status === 403
+      ? 'BREVO_AUTHENTICATION_FAILED'
+      : 'BREVO_API_REJECTED';
+    throw createBrevoError(`Brevo rejected the email request (HTTP ${response.status}).`, code, response.status);
+  }
+
+  if (typeof result?.messageId !== 'string' || !result.messageId.trim()) {
+    throw createBrevoError('Brevo returned no message ID; email acceptance could not be confirmed.', 'BREVO_INVALID_RESPONSE', response.status);
+  }
+
+  // This confirms Brevo accepted the request, not that the recipient's inbox
+  // has received it. Delivery events are available through Brevo webhooks.
+  return {
+    success: true,
+    accepted: true,
+    provider: 'brevo',
+    messageId: result.messageId
+  };
 }
 
 module.exports = sendSystemMail;

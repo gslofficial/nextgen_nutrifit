@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test",
     "start": "node server.js"
   },
   "keywords": [],
@@ -12,8 +12,8 @@
   "license": "ISC",
   "type": "commonjs",
   "engines": {
-  "node": ">=20"
-},
+    "node": ">=20"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.3.0",
@@ -21,9 +21,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
-    "mongoose": "^9.9.2",
-    "nodemailer": "^9.0.5",
-    "resend": "^6.19.0"
+    "mongoose": "^9.9.2"
   },
   "repository": {
     "type": "git",

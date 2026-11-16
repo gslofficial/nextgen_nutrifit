@@ -197,7 +197,15 @@ const pendingRegistrations = new Map();
 // ========================================================
 app.post('/auth/register', async (req, res) => {
   try {
-    const { fullName, address, gender, dob, email, password, confirmPassword } = req.body;
+    const { fullName, address, gender, dob, email, password, confirmPassword } = req.body || {};
+
+    const requiredValues = [fullName, address, gender, dob, email, password, confirmPassword];
+    if (requiredValues.some(value => typeof value !== 'string' || !value.trim())) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please complete all required registration fields.'
+      });
+    }
 
     if (password !== confirmPassword) {
       return res.status(400).json({
@@ -211,6 +219,14 @@ app.post('/auth/register', async (req, res) => {
       return res.status(400).json({
         success: false,
         message: 'Please enter a valid email address.'
+      });
+    }
+
+    const parsedDob = new Date(dob);
+    if (Number.isNaN(parsedDob.getTime()) || parsedDob > new Date()) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid date of birth.'
       });
     }
 
@@ -288,17 +304,21 @@ app.post('/auth/register', async (req, res) => {
       await sendSystemMail(email, otpSubject, otpHtml);
     } catch (mailErr) {
       pendingRegistrations.delete(email);
-      console.error('Failed to send verification email:', mailErr);
-      return res.status(500).json({
+      console.error('Registration verification email delivery failed:', {
+        provider: 'brevo',
+        errorCode: mailErr.code || mailErr.name || 'unknown',
+        httpStatus: mailErr.statusCode || null
+      });
+      return res.status(502).json({
         success: false,
-        message: 'Could not send a verification email to that address. Please check it and try again.'
+        message: 'We could not send the verification email right now. Please try again later. No account was created.'
       });
     }
 
     return res.status(200).json({
       success: true,
       requiresVerification: true,
-      message: 'A verification code was sent to your email. Please verify to complete registration.'
+      message: 'Brevo accepted the verification email for delivery. Check your inbox and spam folder, then enter the code to complete registration.'
     });
 
   } catch (error) {
@@ -451,7 +471,10 @@ app.post('/auth/register/verify', async (req, res) => {
     try {
       await sendSystemMail(email, welcomeSubject, welcomeHtml);
     } catch (mailErr) {
-      console.error('Welcome email failed (account was still created):', mailErr);
+      console.error('Welcome email failed (account was still created):', {
+        errorCode: mailErr.code || mailErr.name || 'unknown',
+        httpStatus: mailErr.statusCode || null
+      });
     }
 
     return res.status(201).json({
@@ -603,10 +626,14 @@ app.post('/auth/forgot-password/request', async (req, res) => {
       user.otp = null;
       user.otpExpires = null;
       await user.save();
+      console.error('Password reset email delivery failed:', {
+        errorCode: mailErr.code || mailErr.name || 'unknown',
+        httpStatus: mailErr.statusCode || null
+      });
       return res.status(502).json({ success: false, message: 'Could not send a verification email to that address. Please try again.' });
     }
 
-    return res.status(200).json({ success: true, message: 'Verification code generated and sent to email!' });
+    return res.status(200).json({ success: true, message: 'Brevo accepted the verification email for delivery. Check your inbox and spam folder for the code.' });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, message: 'Server request error.' });
@@ -650,12 +677,27 @@ app.post('/auth/forgot-password/verify', async (req, res) => {
       </div>
     `;
 
-    // Fire Email 2 to confirm account modification state
-    await sendSystemMail(email, successSubject, successHtml);
+    // The password is already changed. A notification failure must not report
+    // the completed reset itself as failed.
+    let confirmationAccepted = false;
+    try {
+      await sendSystemMail(email, successSubject, successHtml);
+      confirmationAccepted = true;
+    } catch (mailErr) {
+      console.error('Password reset completed but notification email failed:', {
+        errorCode: mailErr.code || mailErr.name || 'unknown',
+        httpStatus: mailErr.statusCode || null
+      });
+    }
 
-    return res.status(200).json({ success: true, message: 'Password reset successful!' });
+    return res.status(200).json({
+      success: true,
+      message: confirmationAccepted
+        ? 'Password reset successful. Brevo accepted the confirmation email for delivery.'
+        : 'Password reset successful, but the confirmation email could not be accepted for delivery.'
+    });
   } catch (error) {
-    console.error("Error sending password change confirmation:", error);
+    console.error('Password reset verification failed:', error.name || 'unknown');
     return res.status(500).json({ success: false, message: 'Server verification route processing fault.' });
   }
 });

@@ -97,6 +97,19 @@
     const resendOtpLink = document.getElementById('resendOtpLink');
     const backToFormLink = document.getElementById('backToFormLink');
 
+    async function readApiResponse(response) {
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+            return response.json();
+        }
+        const responseText = (await response.text()).trim();
+        const message = responseText.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+        return {
+            success: false,
+            message: message || `The server returned HTTP ${response.status}. Please try again later.`
+        };
+    }
+
     // Keep the last submitted registration data so "Resend code" can re-trigger it
     let lastRegistrationPayload = null;
     let pendingEmail = null;
@@ -143,7 +156,7 @@
                 body: JSON.stringify(data)
             });
 
-            const result = await response.json();
+            const result = await readApiResponse(response);
 
             if (result.success && result.requiresVerification) {
                 // Don't redirect yet — the account isn't created until OTP is verified
@@ -177,7 +190,7 @@
                 body: JSON.stringify({ email: pendingEmail, otp: otpInput.value.trim() })
             });
 
-            const result = await response.json();
+            const result = await readApiResponse(response);
 
             alert(result.message);
 
@@ -204,7 +217,7 @@
                 },
                 body: JSON.stringify(lastRegistrationPayload)
             });
-            const result = await response.json();
+            const result = await readApiResponse(response);
             alert(result.message);
         } catch (err) {
             console.error(err);
