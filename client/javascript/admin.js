@@ -7,6 +7,7 @@ async function checkAdminAuth() {
         if (!res.ok) throw new Error('unauthorized');
         const admin = await res.json();
         document.getElementById('adminIdentity').textContent = `${admin.fullName} · ${admin.email}`;
+        await Promise.all([loadStats(), loadFoods(), loadExercises(), loadUsers()]);
     } catch (err) {
         window.location.href = 'adminlogin.html';
     }
@@ -29,6 +30,16 @@ document.querySelectorAll('.nav-item').forEach(btn => {
         document.getElementById(`section-${btn.dataset.section}`).classList.add('active');
     });
 });
+
+async function loadStats() {
+    try {
+        const res = await fetch('/admin/api/stats');
+        if (!res.ok) return;
+        const stats = await res.json();
+        for (const [key, id] of Object.entries({ users: 'statUsers', admins: 'statAdmins', foods: 'statFoods', exercises: 'statExercises' }))
+            document.getElementById(id).textContent = stats[key];
+    } catch (error) { console.error('Could not load statistics', error); }
+}
 
 // ========================================================
 // MODAL HELPERS
@@ -286,7 +297,8 @@ const userForm = document.getElementById('userForm');
 const userFormError = document.getElementById('userFormError');
 
 async function loadUsers() {
-    const res = await fetch('/admin/api/users');
+    const search = document.getElementById('userSearch').value.trim();
+    const res = await fetch(`/admin/api/users?search=${encodeURIComponent(search)}`);
     const users = await res.json();
     usersTableBody.innerHTML = '';
     usersEmpty.classList.toggle('hidden', users.length !== 0);
@@ -305,6 +317,7 @@ async function loadUsers() {
         usersTableBody.appendChild(tr);
     });
 }
+document.getElementById('userSearch').addEventListener('input', loadUsers);
 
 usersTableBody.addEventListener('click', async (e) => {
     const editBtn = e.target.closest('[data-edit-user]');
@@ -376,6 +389,3 @@ function escapeHtml(str) {
 // ========================================================
 // INITIAL LOAD
 // ========================================================
-loadFoods();
-loadExercises();
-loadUsers();

@@ -20,11 +20,12 @@
         <a href="healthtracker.html">Health Tracker</a>
         <a href="fooddairy.html">Food Dairy</a>
         <a href="exercise.html#categories">Exercise</a>
-        <a href="index.html#about">About</a>
+        
       </div>
       <div class="profile-container">
     <div class="profile-avatar" id="avatarBtn">
         <i class="fa-solid fa-user-circle"></i>
+        <img id="navProfilePicture" class="nav-profile-picture" alt="" hidden>
         <span id="navUserName">Loading...</span>
     </div>
 
@@ -34,11 +35,14 @@
         </div>
 
         <div id="profileViewMode">
+            <img id="profilePicturePreview" class="profile-picture-preview" alt="Profile picture" hidden>
             <p><strong>Name:</strong> <span id="profName">-</span></p>
             <p><strong>Email ID:</strong> <span id="profEmail">-</span></p>
             <p><strong>Age:</strong> <span id="profAge">-</span></p>
             <p><strong>DOB:</strong> <span id="profDob">-</span></p>
             <p><strong>Gender:</strong> <span id="profGender">-</span></p>
+            <p><strong>Address:</strong> <span id="profAddress">-</span></p>
+            <p><strong>Member since:</strong> <span id="profCreated">-</span></p>
             <button class="edit-details-btn" id="openEditBtn">
                 <i class="fa-solid fa-pen"></i> Update Profile
             </button>
@@ -46,18 +50,28 @@
 
         <form id="profileEditForm" style="display: none;">
             <div class="edit-input-group">
+                <label for="profilePictureInput">Profile picture (PNG, JPG, or WebP; max 1.5 MB)</label>
+                <input type="file" id="profilePictureInput" accept="image/png,image/jpeg,image/webp">
+                <button type="button" class="cancel-edit-btn" id="removeProfilePictureBtn">Remove picture</button>
+            </div>
+            <div class="edit-input-group">
                 <label>Full Name</label>
                 <input type="text" name="fullName" id="editName" required>
             </div>
 
             <div class="edit-input-group">
-                <label>Age</label>
-                <input type="number" name="age" id="editAge" required>
-            </div>
-
-            <div class="edit-input-group">
                 <label>Date of Birth</label>
                 <input type="date" name="dob" id="editDob" required>
+            </div>
+            <div class="edit-input-group">
+                <label>Address</label>
+                <input type="text" name="address" id="editAddress" maxlength="300" required>
+            </div>
+            <div class="edit-input-group">
+                <label>Gender</label>
+                <select name="gender" id="editGender" required>
+                    <option value="">Select gender</option><option>Male</option><option>Female</option><option>Other</option><option>Prefer not to say</option>
+                </select>
             </div>
 
             <div class="edit-button-row">
@@ -83,8 +97,8 @@
         <h1>Eat smart.<br><em>Know your food.</em></h1>
         <p>Explore everyday vegetarian, non-vegetarian and mixed foods with nutrition values per 100 g. Enter your own gram amount to estimate nutrients instantly.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" >Explore Foods <span>→</span></a>
-          <a class="btn btn-ghost">Nutrition Calculator</a>
+          <a class="btn btn-primary" href="fooddairy.html#categories">Explore Foods <span>→</span></a>
+          <a class="btn btn-ghost" href="healthtracker.html#calculator">Nutrition Calculator</a>
         </div>
         <div class="hero-stats">
           <div><strong id="foodCountStat">60+</strong><span>foods</span></div>
@@ -113,7 +127,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div><a class="brand" ><span>✦</span> NutriLife</a><p>Food • Nutrition • Everyday Life</p></div>
-      <div><h4>Quick Links</h4><a href="index.html#foods">Foods</a><a href="index.html#calculator">Calculator</a><a href="index.html#categories">Categories</a></div>
+      <div><h4>Quick Links</h4><a href="fooddairy.html#categories">Foods</a><a href="healthtracker.html#calculator">Calculator</a><a href="fooddairy.html#categories">Categories</a></div>
       <div><h4>Reference</h4><a href="https://fdc.nal.usda.gov/" target="_blank" rel="noopener">USDA FoodData Central</a><a href="https://fdc.nal.usda.gov/api-guide/" target="_blank" rel="noopener">FoodData Central API Guide</a></div>
       <div><h4>Disclaimer</h4><p>Food values can vary by variety, brand and preparation. This site is for educational information.</p></div>
     </div>

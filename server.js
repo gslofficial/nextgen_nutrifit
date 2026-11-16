@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 const session = require('express-session'); 
-const nodemailer = require('nodemailer');
+const MongoSessionStore = require('./middleware/MongoSessionStore');
+const sendSystemMail = require('./otpsender');
 const dns = require('dns').promises;
 // Use reliable public resolvers explicitly - some networks/OS configs have a
 // broken or firewalled default DNS resolver, which was causing valid domains
@@ -14,7 +15,7 @@ dns.setServers(['8.8.8.8', '1.1.1.1']);
 const app = express();
 
 // MIDDLEWARE CONFIGURATIONS
-app.use(express.json());
+app.use(express.json({ limit: '3mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // INITIALIZE SYSTEM SESSION TRACKING
@@ -22,11 +23,14 @@ app.set('trust proxy', 1); // needed because Render sits behind a proxy
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'dev_secret_change_me',
+  store: new MongoSessionStore(mongoose),
   resave: false,
   saveUninitialized: false,
   cookie: {
     maxAge: 1000 * 60 * 60 * 2,
-    secure: process.env.NODE_ENV === 'production',
+    // Use HTTPS-only cookies on HTTPS requests. This also lets local HTTP
+    // development work when NODE_ENV is set to production in the deployment .env.
+    secure: 'auto',
     sameSite: 'lax'
   }
 }));
@@ -48,31 +52,7 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error('Database connection failed :', err));
 
 // UPDATED DATABASE SCHEMA BLUEPRINT FOR ADDRESS & AUTOMATIC AGE
-const userSchema = new mongoose.Schema({
-  fullName: { type: String, required: true },
-  address: { type: String, required: true }, // 1. Added address field tracking
-  age: { type: Number, required: true },       // 2. Kept as number, but computed from DOB
-  gender: { type: String, required: true },
-  dob: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  otp: { type: String, default: null },         
-  otpExpires: { type: Date, default: null },
-  role: { type: String, enum: ['user', 'admin'], default: 'user' }, // ✅ NEW: admin role flag
-  
-  healthLogs: [{
-    weight: Number,
-    height: Number,
-    calories: Number,
-    protein: Number,
-    fats: Number,
-    carbs: Number,
-    fiber: Number,
-    date: { type: Date, default: Date.now }
-  }]
-});
-
-const User = mongoose.model('User', userSchema);
+const User = require('./models/User');
 
 // ========================================================
 // ✅ NEW: FOOD DIARY ITEM SCHEMA (managed from the admin panel)
@@ -158,25 +138,6 @@ async function seedInitialData() {
 // ========================================================
 // 📧 DYNAMIC EMAIL AUTHENTICATION SYSTEM (NO HARDCODED TO:)
 // ========================================================
-const { Resend } = require('resend');
-
-async function sendSystemMail(to, subject, htmlContent) {
-    try {
-        const resend = new Resend(process.env.RESEND_API_KEY);
-        const { data, error } = await resend.emails.send({
-            from: 'NextGenNutriFit <onboarding@resend.dev>',
-            to: [to],
-            subject: subject,
-            html: htmlContent
-        });
-        if (error) throw new Error(JSON.stringify(error));
-        console.log(`Email successfully dispatched to ${to}`);
-        return { success: true };
-    } catch (error) {
-        console.error(`Email failure targeting ${to}:`, error);
-        throw error;
-    }
-}
 // ========================================================
 // ✅ NEW: EMAIL EXISTENCE VALIDATION HELPERS
 // ========================================================
@@ -510,8 +471,19 @@ app.post('/auth/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ success: false, message: 'Invalid email or password.' });
 
-    req.session.userId = user._id; 
-    return res.status(200).json({ success: true, message: 'Login successful!' });
+    req.session.userId = user._id;
+    req.session.adminId = null;
+    if (user.role === 'admin') {
+      req.session.adminId = user._id;
+      return req.session.save(err => {
+        if (err) return res.status(500).json({ success: false, message: 'Could not save login session. Please try again.' });
+        res.status(200).json({ success: true, role: 'admin', message: 'Login successful!' });
+      });
+    }
+    return req.session.save(err => {
+      if (err) return res.status(500).json({ success: false, message: 'Could not save login session. Please try again.' });
+      res.status(200).json({ success: true, role: 'user', message: 'Login successful!' });
+    });
   } catch (error) {
     return res.status(500).json({ success: false, message: 'Server error during login.' });
   }
@@ -521,7 +493,8 @@ app.post('/auth/login', async (req, res) => {
 app.get('/auth/profile', async (req, res) => {
   if (!req.session.userId) return res.status(401).json({ message: 'Unauthorized. Please login.' });
   try {
-    const user = await User.findById(req.session.userId).select('-password');
+    const user = await User.findById(req.session.userId).select('-password -otp -otpExpires');
+    if (user && !user.createdAt) user.createdAt = user._id.getTimestamp();
     res.json(user);
   } catch (err) {
     res.status(500).json({ message: 'Server error loading profile.' });
@@ -532,8 +505,28 @@ app.get('/auth/profile', async (req, res) => {
 app.put('/auth/profile/update', async (req, res) => {
   if (!req.session.userId) return res.status(401).json({ message: 'Unauthorized.' });
   try {
-    const { fullName, age, dob } = req.body;
-    await User.findByIdAndUpdate(req.session.userId, { fullName, age, dob });
+    const { fullName, dob, address, gender, profilePicture, removeProfilePicture } = req.body;
+    if (typeof fullName !== 'string' || fullName.trim().length < 2 || fullName.length > 100)
+      return res.status(400).json({ success: false, message: 'Please enter a valid full name.' });
+    if (typeof dob !== 'string' || Number.isNaN(Date.parse(dob)) || new Date(dob) > new Date())
+      return res.status(400).json({ success: false, message: 'Please enter a valid date of birth.' });
+    if (typeof address !== 'string' || address.trim().length > 300)
+      return res.status(400).json({ success: false, message: 'Please enter a valid address.' });
+    if (!['male', 'female', 'other', 'prefer not to say', ''].includes(String(gender || '').toLowerCase()))
+      return res.status(400).json({ success: false, message: 'Please select a valid gender.' });
+    if (profilePicture !== undefined && profilePicture !== '' &&
+        (typeof profilePicture !== 'string' || profilePicture.length > 2200000 ||
+         !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(profilePicture)))
+      return res.status(400).json({ success: false, message: 'Choose a PNG, JPG, or WebP image under 1.5 MB.' });
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    if (today.getMonth() < birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) age--;
+    const updates = { fullName: fullName.trim(), dob, age, address: address.trim(), gender };
+    if (removeProfilePicture === true) updates.profilePicture = '';
+    else if (profilePicture) updates.profilePicture = profilePicture;
+    const user = await User.findByIdAndUpdate(req.session.userId, updates, { new: true, runValidators: true }).select('-password -otp -otpExpires');
+    if (!user) return res.status(404).json({ success: false, message: 'Profile not found.' });
     res.json({ success: true, message: 'Profile information updated successfully! 💾' });
   } catch (err) {
     res.status(500).json({ message: 'Error processing details update.' });
@@ -572,6 +565,7 @@ app.post('/auth/logout', (req, res) => {
 app.post('/auth/forgot-password/request', async (req, res) => {
   try {
     const { email } = req.body;
+    if (!isValidEmailFormat(email)) return res.status(400).json({ success: false, message: 'Please enter a valid email address.' });
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ success: false, message: 'No gym account found.' });
 
@@ -596,7 +590,13 @@ app.post('/auth/forgot-password/request', async (req, res) => {
     `;
 
     // Fire Email 1 directly to user's registered inbox data mapping
-    await sendSystemMail(email, otpSubject, otpHtml);
+    try { await sendSystemMail(email, otpSubject, otpHtml); }
+    catch (mailErr) {
+      user.otp = null;
+      user.otpExpires = null;
+      await user.save();
+      return res.status(502).json({ success: false, message: 'Could not send a verification email to that address. Please try again.' });
+    }
 
     return res.status(200).json({ success: true, message: 'Verification code generated and sent to email!' });
   } catch (error) {
@@ -696,7 +696,10 @@ function requireAdmin(req, res, next) {
   if (!req.session.adminId) {
     return res.status(401).json({ success: false, message: 'Admin login required.' });
   }
-  next();
+  User.findById(req.session.adminId).select('role').then(admin => {
+    if (!admin || admin.role !== 'admin') return res.status(403).json({ success: false, message: 'Admin access required.' });
+    next();
+  }).catch(() => res.status(500).json({ success: false, message: 'Could not verify administrator access.' }));
 }
 
 app.post('/admin/auth/login', async (req, res) => {
@@ -713,7 +716,11 @@ app.post('/admin/auth/login', async (req, res) => {
     }
 
     req.session.adminId = user._id;
-    return res.status(200).json({ success: true, message: 'Admin login successful!' });
+    req.session.userId = user._id;
+    return req.session.save(err => {
+      if (err) return res.status(500).json({ success: false, message: 'Could not save login session. Please try again.' });
+      res.status(200).json({ success: true, message: 'Admin login successful!' });
+    });
   } catch (error) {
     return res.status(500).json({ success: false, message: 'Server error during admin login.' });
   }
@@ -729,8 +736,10 @@ app.get('/admin/auth/me', requireAdmin, async (req, res) => {
 });
 
 app.post('/admin/auth/logout', (req, res) => {
-  req.session.adminId = null;
-  res.json({ success: true });
+  req.session.destroy(() => {
+    res.clearCookie('connect.sid');
+    res.json({ success: true });
+  });
 });
 
 // ========================================================
@@ -813,13 +822,21 @@ app.delete('/admin/api/exercises/:id', requireAdmin, async (req, res) => {
 // 🛡️ ADMIN: USER MANAGEMENT
 // ========================================================
 app.get('/admin/api/users', requireAdmin, async (req, res) => {
-  const users = await User.find().select('-password -otp -otpExpires').sort({ createdAt: -1 });
+  const query = String(req.query.search || '').trim();
+  const filter = query ? { $or: [{ fullName: { $regex: query, $options: 'i' } }, { email: { $regex: query, $options: 'i' } }] } : {};
+  const users = await User.find(filter).select('-password -otp -otpExpires -profilePicture').sort({ createdAt: -1 });
   res.json(users);
+});
+
+app.get('/admin/api/stats', requireAdmin, async (req, res) => {
+  try { res.json({ users: await User.countDocuments(), admins: await User.countDocuments({ role: 'admin' }), foods: await Food.countDocuments(), exercises: await Exercise.countDocuments() }); }
+  catch { res.status(500).json({ success: false, message: 'Could not load dashboard statistics.' }); }
 });
 
 app.put('/admin/api/users/:id', requireAdmin, async (req, res) => {
   try {
     const { fullName, address, age, gender, role } = req.body;
+    if (!['user', 'admin'].includes(role)) return res.status(400).json({ success: false, message: 'Invalid user role.' });
     const user = await User.findByIdAndUpdate(
       req.params.id,
       { fullName, address, age, gender, role },

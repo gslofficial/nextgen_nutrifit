@@ -12,8 +12,11 @@
   (see `data/foods-seed.json` and `data/exercises-seed.json`), so
   nothing is lost.
 - **An admin role on your existing User model** (`role: 'user' | 'admin'`).
-- **A separate admin login** at `/adminlogin.html`, kept independent
-  from the normal member session.
+- **Role based login** through the member login page, with the existing
+  admin login page retained as a shortcut. Admin APIs check the current
+  MongoDB role on each request.
+- Login sessions are stored in the same MongoDB database through the existing
+  Mongoose connection, so production instances share the same signed-in session.
 - **An admin dashboard** at `/admin.html` with three tabs:
   - **Food Diary** — add, edit, delete food items
   - **Exercises** — add, edit, delete exercises (home/gym/yoga)
@@ -36,8 +39,10 @@ npm install
 
 ## 3. Set your environment variables
 
-Copy `.env.example` to `.env` and fill in your real values (Mongo
-connection string, Gmail address, Gmail app password).
+Set `MONGO_URI`, `APP_EMAIL` (the Gmail sender address), and `APP_PASS`
+(its Gmail App Password) in the root `.env`. Also set a strong
+`SESSION_SECRET`; never commit `.env` or put these values in frontend code.
+OTP and password reset email go to the address entered for the account.
 
 ## 4. Start the server
 
@@ -68,8 +73,8 @@ Admin access is just a flag on a normal account, so:
    node make-admin.js youremail@example.com
    ```
 
-3. Go to `/adminlogin.html` and log in with that email and the same
-   password you registered with.
+3. Log in with the same credentials through either login page. The normal
+   login page redirects administrators to `/admin.html` based on the role.
 
 Repeat step 2 for anyone else (e.g. your professor) who needs admin
 access — just promote their existing account the same way.

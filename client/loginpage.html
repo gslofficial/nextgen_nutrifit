@@ -64,6 +64,7 @@
                 <a href="forgotpage.html" class="forgot">Forgot Password?</a>
                 <button type="submit">Login</button>
             </div>
+            <p class="register-link"><a href="adminlogin.html">Admin Login</a></p>
 
             <div class="register-link">
                 <p>If you haven't an account? <a href="registerpage.html">Register</a></p>
@@ -98,6 +99,7 @@
         try {
             const response = await fetch('/auth/login', {
                 method: 'POST',
+                credentials: 'same-origin',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
@@ -105,7 +107,7 @@
             const result = await response.json();
             
             if (result.success) {
-                window.location.href = 'homepage.html'; 
+                window.location.href = result.role === 'admin' ? 'admin.html' : 'homepage.html';
             } else {
                 alert(result.message);
             }

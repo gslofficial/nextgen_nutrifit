@@ -1261,6 +1261,27 @@ button {
     color: #ffff00;
 }
 
+.nav-profile-picture {
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ffff00;
+}
+
+.profile-picture-preview {
+    display: block;
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 12px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ffff00;
+}
+
+.nav-profile-picture[hidden],
+.profile-picture-preview[hidden] { display: none; }
+
 #navUserName {
     font-size: 0.95rem;
     font-weight: 500;
@@ -1341,7 +1362,8 @@ button {
     margin-bottom: 3px;
 }
 
-.edit-input-group input {
+.edit-input-group input,
+.edit-input-group select {
     width: 100%;
 
     padding: 6px;

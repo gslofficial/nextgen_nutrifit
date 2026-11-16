@@ -20,7 +20,8 @@
         <p class="sidebar-tag">Admin Console</p>
 
         <nav class="sidebar-nav">
-            <button class="nav-item active" data-section="foods">
+            <button class="nav-item active" data-section="overview"><i class="fa-solid fa-chart-line"></i> Overview</button>
+            <button class="nav-item" data-section="foods">
                 <i class="fa-solid fa-drumstick-bite"></i> Food Diary
             </button>
             <button class="nav-item" data-section="exercises">
@@ -40,8 +41,18 @@
     <!-- MAIN CONTENT -->
     <main class="main-content">
 
+        <section class="content-section active" id="section-overview">
+            <div class="section-header"><div><h2>Website overview</h2><p class="section-sub">Current content and membership totals.</p></div></div>
+            <div class="stats-grid">
+                <div class="stat-card"><strong id="statUsers">—</strong><span>Registered users</span></div>
+                <div class="stat-card"><strong id="statAdmins">—</strong><span>Administrators</span></div>
+                <div class="stat-card"><strong id="statFoods">—</strong><span>Food items</span></div>
+                <div class="stat-card"><strong id="statExercises">—</strong><span>Exercises</span></div>
+            </div>
+        </section>
+
         <!-- FOODS SECTION -->
-        <section class="content-section active" id="section-foods">
+        <section class="content-section" id="section-foods">
             <div class="section-header">
                 <div>
                     <h2>Food diary items</h2>
@@ -93,6 +104,7 @@
                     <h2>Registered users</h2>
                     <p class="section-sub">Edit member details or manage admin access.</p>
                 </div>
+                <input id="userSearch" type="search" placeholder="Search name or email" aria-label="Search users">
             </div>
             <div class="table-wrap">
                 <table>

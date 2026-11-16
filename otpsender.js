@@ -1,37 +1,21 @@
-const nodemailer = require("nodemailer");
-require("dotenv").config();
+﻿const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+const EMAIL = process.env.APP_EMAIL;
+const PASSWORD = process.env.APP_PASS;
 
 async function sendSystemMail(to, subject, htmlContent) {
-    try {
-        const transporter = nodemailer.createTransport({
-    host: "://hostinger.com", // Change this to your business email host server
-    port: 465,
-    secure: true, // Use SSL/TLS
-    auth: {
-        user: process.env.BUSINESS_EMAIL, // e.g. support@nextgennutrifit.com
-        pass: process.env.BUSINESS_PASSWORD 
-    }
-});
-
-
-        const mailOptions = {
-    // A clean name helps avoid immediate automated blocks
-    from: `"NextGenNutriFit Engine" <${process.env.APP_EMAIL}>`, 
-    to: to,
-    subject: subject,
-    html: htmlContent
-};
-
-
-        const info = await transporter.sendMail(mailOptions);
-        console.log(`Email successfully dispatched to ${to}:`, info.response);
-        return { success: true, response: info.response };
-        
-    } catch (error) {
-        console.error(`Nodemailer transport pipeline failure targeting ${to}:`, error);
-        throw error; 
-    }
+  if (typeof to !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(to)) {
+    throw new Error('A valid recipient email address is required.');
+  }
+  if (!EMAIL || !PASSWORD) throw new Error('Email sender configuration is missing.');
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com', port: 465, secure: true,
+    auth: { user: EMAIL, pass: PASSWORD }
+  });
+  const info = await transporter.sendMail({ from: `"NextGenNutriFit" <${EMAIL}>`, to, subject, html: htmlContent });
+  console.log(`Email successfully dispatched to ${to}: ${info.response}`);
+  return { success: true, response: info.response };
 }
 
-// Exports the function so server.js can use it easily
-module.exports = sendSystemMail; 
+module.exports = sendSystemMail;

@@ -153,6 +153,12 @@ body {
     margin-top: 4px;
 }
 
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; }
+.stat-card { padding: 22px; border: 1px solid #292929; border-radius: 12px; background: #151515; display: grid; gap: 8px; }
+.stat-card strong { color: #ffff00; font-size: 28px; }
+.stat-card span { color: #999; font-size: 13px; }
+#userSearch { min-width: min(280px, 100%); padding: 10px 12px; color: #eee; background: #171717; border: 1px solid #363636; border-radius: 8px; }
+
 .btn-primary {
     background: #ffff00;
     color: #111;
