@@ -137,6 +137,20 @@ form{
     gap:15px;
 }
 
+#registerForm > input,
+#otpForm > input,
+.password-wrapper input{
+    display:block;
+    width:100%;
+    min-width:0;
+    max-width:100%;
+}
+
+.password-wrapper{
+    width:100%;
+    min-width:0;
+}
+
 input{
     padding:14px;
 
@@ -207,7 +221,7 @@ a{
 
 /* Ensure the input leaves space so letters do not overlap behind the eye icon */
 .password-wrapper input {
-    padding-right: 200px !important; 
+    padding-right: 52px !important;
     box-sizing: border-box !important;
 }
 

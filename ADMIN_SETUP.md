@@ -44,6 +44,21 @@ Set `MONGO_URI`, `APP_EMAIL` (the Gmail sender address), and `APP_PASS`
 `SESSION_SECRET`; never commit `.env` or put these values in frontend code.
 OTP and password reset email go to the address entered for the account.
 
+### Email on Render
+
+The default `smtp` provider uses Gmail SMTP on port 465. Render's free web
+services block outbound SMTP ports, so registration OTP emails cannot be sent
+that way from a free Render service. Use Resend's HTTPS API for the deployed
+service:
+
+1. Verify a sender domain in Resend and create a sending API key.
+2. In the Render service's **Environment** settings, set `EMAIL_PROVIDER` to
+   `resend`, `RESEND_API_KEY` to that key, and `RESEND_FROM_EMAIL` to a sender
+   address on the verified domain (for example, `NextGen NutriFit <verify@your-domain.com>`).
+3. Save and redeploy the service.
+
+Leave `EMAIL_PROVIDER` unset locally to keep the existing Gmail SMTP behavior.
+
 ## 4. Start the server
 
 ```bash
