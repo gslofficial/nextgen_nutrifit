@@ -1,6 +1,11 @@
 ﻿require('dotenv').config();
 const mongoose = require('mongoose');
+const dns = require('dns');
 const User = require('./models/User');
+
+// Match server.js: some Windows/network DNS configurations refuse SRV lookups
+// through the default resolver, which mongodb+srv requires.
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 
 const email = String(process.argv[2] || '').trim().toLowerCase();
 const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -28,7 +33,11 @@ async function main() {
 }
 
 main().catch(error => {
-  console.error('Could not make user an administrator:', error.message);
+  if (error.code === 'ECONNREFUSED' || error.syscall === 'querySrv') {
+    console.error('Could not resolve the MongoDB Atlas SRV record. Check that this network allows DNS queries to 8.8.8.8 or 1.1.1.1, and that MONGO_URI contains the correct Atlas cluster hostname. No account changes were made.');
+  } else {
+    console.error('Could not make user an administrator:', error.message);
+  }
   process.exitCode = 1;
 }).finally(async () => {
   if (mongoose.connection.readyState !== 0) await mongoose.disconnect();

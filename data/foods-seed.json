@@ -741,19 +741,6 @@
     "emoji": "🥑"
   },
   {
-    "name": "Olive Oil",
-    "type": "Vegetarian",
-    "group": "Other",
-    "kcal": 884,
-    "protein": 0,
-    "carbs": 0,
-    "fat": 100,
-    "fiber": 0,
-    "sugar": 0,
-    "image": "./photo/olive-oil.png",
-    "emoji": "🫒"
-  },
-  {
     "name": "Coconut",
     "type": "Vegetarian",
     "group": "Nut/Seed",
@@ -765,19 +752,6 @@
     "sugar": 6.2,
     "image": "./foodphoto/coconut.png",
     "emoji": "🥥"
-  },
-  {
-    "name": "Dark Chocolate 70-85%",
-    "type": "Vegetarian",
-    "group": "Other",
-    "kcal": 598,
-    "protein": 7.8,
-    "carbs": 45.9,
-    "fat": 42.6,
-    "fiber": 10.9,
-    "sugar": 24.2,
-    "image": "./photo/dark-chocolate.png",
-    "emoji": "🍫"
   },
   {
     "name": "Raisins",

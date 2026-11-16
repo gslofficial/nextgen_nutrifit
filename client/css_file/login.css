@@ -174,8 +174,19 @@ button{
     }
 }
 
+/* Keep the full login photo composition visible on phones instead of scaling it
+   to fill a tall viewport and cropping most of its width. */
+@media (max-width: 600px){
+    body{
+        background-size:auto 78vh;
+        background-position:center top;
+        background-attachment:scroll;
+    }
+}
+
 /* Small phones */
 @media (max-width: 400px){
+    body{ background-size:auto 72vh; }
     .login-form{ margin-top:40px; }
     button{ padding:12px 28px; font-size:16px; }
     .forgot{ padding:10px 14px; font-size:14px; }

@@ -58,9 +58,7 @@ let foods = [
   {name:"Tilapia, cooked",type:"Non-Vegetarian",group:"Protein",kcal:128,protein:26.2,carbs:0,fat:2.7,fiber:0,sugar:0,image:"./foodphoto/tilapia.png",emoji:"🐟"},
   {name:"Greek Yogurt, plain",type:"Vegetarian",group:"Dairy",kcal:73,protein:9.9,carbs:3.9,fat:2.0,fiber:0,sugar:3.6,image:"./foodphoto/greek-yogurt.png",emoji:"🥛"},
   {name:"Avocado",type:"Vegetarian",group:"Fruit",kcal:160,protein:2.0,carbs:8.5,fat:14.7,fiber:6.7,sugar:0.7,image:"./foodphoto/avocado.png",emoji:"🥑"},
-  {name:"Olive Oil",type:"Vegetarian",group:"Other",kcal:884,protein:0,carbs:0,fat:100,fiber:0,sugar:0,image:"./photo/olive-oil.png",emoji:"🫒"},
   {name:"Coconut",type:"Vegetarian",group:"Nut/Seed",kcal:354,protein:3.3,carbs:15.2,fat:33.5,fiber:9.0,sugar:6.2,image:"./foodphoto/coconut.png",emoji:"🥥"},
-  {name:"Dark Chocolate 70-85%",type:"Vegetarian",group:"Other",kcal:598,protein:7.8,carbs:45.9,fat:42.6,fiber:10.9,sugar:24.2,image:"./photo/dark-chocolate.png",emoji:"🍫"},
   {name:"Raisins",type:"Vegetarian",group:"Fruit",kcal:299,protein:3.1,carbs:79.2,fat:0.5,fiber:3.7,sugar:59.2,image:"./foodphoto/raisins.png",emoji:"🍇"},
   {name:"Dates",type:"Vegetarian",group:"Fruit",kcal:282,protein:2.5,carbs:75.0,fat:0.4,fiber:8.0,sugar:63.4,image:"./foodphoto/dates.png",emoji:"🌴"},
   {name:"Mushrooms, cooked",type:"Vegetarian",group:"Vegetable",kcal:28,protein:3.6,carbs:5.3,fat:0.5,fiber:2.2,sugar:2.0,image:"./foodphoto/mushrooms.png",emoji:"🍄"}

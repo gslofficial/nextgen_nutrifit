@@ -77,6 +77,7 @@ p{color:var(--muted);}
   margin:auto;
   height:76px;
   display:flex; align-items:center; gap:34px;
+  position:relative;
 }
 .logo{
   display:flex; align-items:center; gap:8px;
@@ -87,6 +88,18 @@ p{color:var(--muted);}
 .logo em{font-style:normal; color:var(--text);}
 .logo-mark{color:var(--accent); display:flex;}
 .main-nav{display:flex; gap:28px; margin-left:auto;}
+.menu-toggle{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:42px;
+  height:42px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--card);
+  color:var(--text);
+  font-size:22px;
+}
 .main-nav a{
   font-size:16px;
   color:#d5dbd1;
@@ -98,10 +111,30 @@ p{color:var(--muted);}
 .header-stat-label{display:block; font-size:0.72rem; color:var(--muted);}
 
 @media (max-width:720px){
-  .header-inner{height:65px; gap:16px;}
-  .main-nav{gap:16px;}
-  .main-nav a{font-size:14px;}
+  .header-inner{height:65px; gap:12px;}
+  .logo{font-size:clamp(19px,5vw,23px);}
+  .menu-toggle{display:inline-flex; margin-left:auto; flex:none;}
+  .main-nav{
+    display:none;
+    position:absolute;
+    top:calc(100% + 1px);
+    left:0;
+    right:0;
+    margin:0;
+    padding:8px 14px;
+    flex-direction:column;
+    gap:0;
+    border:1px solid var(--line);
+    border-radius:0 0 12px 12px;
+    background:#142419;
+    box-shadow:var(--shadow);
+  }
+  .main-nav.open{display:flex;}
+  .main-nav a{font-size:15px; padding:10px 4px; overflow-wrap:anywhere;}
   .header-stat{display:none;}
+  .section{padding:55px 0;}
+  .section-head{flex-direction:column; align-items:flex-start; gap:12px;}
+  .section-head h2{font-size:38px;}
 }
 
 /* =========================================================
@@ -113,6 +146,7 @@ p{color:var(--muted);}
   margin:auto;
   display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px; align-items:center;
 }
+.hero-inner > *{min-width:0;}
 .hero-kicker{
   font-size:11px; letter-spacing:2.4px; text-transform:uppercase;
   color:var(--accent); font-weight:700;
@@ -142,6 +176,7 @@ p{color:var(--muted);}
 @media (max-width:860px){
   .hero{padding:45px 0 40px;}
   .hero-inner{grid-template-columns:1fr; gap:36px;}
+  .hero-actions .btn{flex:1 1 190px; max-width:100%; text-align:center; white-space:normal;}
   .hero-demo-frame{max-width:260px; margin:0;}
   .hero h1{font-size:46px;}
 }
@@ -166,12 +201,6 @@ p{color:var(--muted);}
   font-size:42px; line-height:1.1; margin:8px 0 0;
 }
 .section-head > p{max-width:430px; color:var(--muted); font-size:14px;}
-@media (max-width:700px){
-  .section{padding:55px 0;}
-  .section-head{flex-direction:column; align-items:flex-start; gap:12px;}
-  .section-head h2{font-size:38px;}
-}
-
 /* =========================================================
    CHIPS (muscle filter) — same as .filter
    ========================================================= */
@@ -197,7 +226,7 @@ p{color:var(--muted);}
    CARD GRID — same as .food-card
    ========================================================= */
 .card-grid{
-  display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 250px), 1fr));
   gap:14px;
 }
 .ex-card{
@@ -211,13 +240,14 @@ p{color:var(--muted);}
 }
 .ex-card:hover{transform:translateY(-5px); border-color:#53694d;}
 .ex-card-media{
-  height:135px;
+  aspect-ratio:16/9;
+  min-height:110px;
   background:linear-gradient(135deg,#243824,#152318);
   position:relative; overflow:hidden;
   display:flex; align-items:center; justify-content:center;
 }
 .ex-card-media svg{width:62%; height:62%; color:var(--accent); filter:drop-shadow(0 14px 10px rgba(0,0,0,.3));}
-.ex-card-media video{width:100%; height:100%; object-fit:cover;}
+.ex-card-media video{width:100%; height:100%; object-fit:contain;}
 .ex-card-badge{
   position:absolute; top:10px; left:10px;
   font-size:9px; font-weight:700;
@@ -226,10 +256,11 @@ p{color:var(--muted);}
   color:var(--accent);
   border:1px solid #46573f;
 }
-.ex-card-body{padding:14px;}
+.ex-card-body{min-width:0; padding:14px;}
 .ex-card-muscle{font-size:12px; color:#7f8d7d; font-weight:700; margin-bottom:2px;}
 .ex-card-name{
   font-family:"DM Sans",Arial,sans-serif;
+  min-width:0; overflow-wrap:anywhere;
   font-weight:700; font-size:15px; color:var(--text); margin-bottom:6px;
 }
 .ex-card-meta{font-size:12px; color:var(--muted); margin:0;}
@@ -277,9 +308,9 @@ p{color:var(--muted);}
 .player-media{
   background:linear-gradient(135deg,#243824,#152318);
   display:flex; align-items:center; justify-content:center;
-  min-height:280px; padding:20px;
+  min-height:280px; padding:20px; min-width:0;
 }
-.player-video{width:100%; height:100%; object-fit:cover; border-radius:14px;}
+.player-video{width:100%; height:100%; object-fit:contain; border-radius:14px;}
 .player-icon{width:70%; height:70%; color:var(--accent);}
 .player-body{padding:32px 30px;}
 .player-muscle{color:var(--accent); font-weight:700; font-size:11px; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;}
@@ -293,7 +324,7 @@ p{color:var(--muted);}
   width:6px; height:6px; border-radius:50%; background:var(--accent);
 }
 
-.player-config{display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:22px;}
+.player-config{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; margin-bottom:22px;}
 .config-field{display:flex; flex-direction:column; gap:6px; font-size:11px; color:#8f9d8c; font-weight:700; letter-spacing:1px; text-transform:uppercase;}
 .stepper{
   display:flex; align-items:center; justify-content:space-between;
@@ -318,8 +349,28 @@ p{color:var(--muted);}
 .player-actions{display:flex; flex-direction:column; gap:10px;}
 
 @media (max-width:760px){
-  .player{grid-template-columns:1fr;}
-  .player-media{min-height:200px;}
+  .player{grid-template-columns:minmax(0, 1fr); max-height:92dvh;}
+  .player-media{min-height:0; aspect-ratio:16/9; padding:12px;}
   .player-config{gap:8px;}
-  .player-body{padding:24px 20px;}
+  .player-body{min-width:0; padding:clamp(16px, 5vw, 24px);}
+  .player-body h3{font-size:clamp(23px, 6vw, 30px); overflow-wrap:anywhere;}
+  .player-cues li{overflow-wrap:anywhere;}
+}
+
+@media (max-width:420px){
+  .section{width:calc(100% - 28px); padding:42px 0;}
+  .section-head h2{font-size:32px;}
+  .hero{padding:38px 0 32px;}
+  .hero-inner{width:calc(100% - 28px); gap:26px;}
+  .hero h1{font-size:clamp(36px, 11vw, 46px); letter-spacing:-1px; overflow-wrap:anywhere;}
+  .hero-actions .btn{padding:11px 14px;}
+  .card-grid{grid-template-columns:minmax(0, 1fr); gap:12px;}
+  .chip{max-width:100%; white-space:normal;}
+  .modal-backdrop{padding:10px;}
+  .player{border-radius:14px;}
+  .player-config{gap:6px;}
+  .stepper{padding:4px; gap:3px;}
+  .stepper button{flex:none;}
+  .stepper output{font-size:13px;}
+  .run-number{font-size:clamp(40px, 13vw, 54px);}
 }

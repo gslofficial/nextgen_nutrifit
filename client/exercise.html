@@ -21,7 +21,8 @@
       </span>  -->
       NextGen <em>NutriFit</em> 
     </a> 
-    <nav class="main-nav" aria-label="Primary"> 
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-controls="mainNav" aria-expanded="false">☰</button>
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
        <a href="homepage.html#home">Home</a>
         <a href="healthtracker.html">Health Tracker</a>
         <a href="fooddairy.html">Food Dairy</a>
@@ -42,9 +43,9 @@
   <section class="hero"> 
     <div class="hero-inner"> 
       <div class="hero-text"> 
-        <p class="hero-kicker">Exercise library</p> 
-        <h1>Every rep counted.<br>Every rest earned.</h1> 
-        <p class="hero-sub">Pick a movement, follow the motion cue, and let the built-in pacer count your reps and time your rest — whether you're on the living-room floor or under the bar.</p> 
+        <p class="hero-kicker">Movement guides</p>
+        <h1>Exercise Library</h1>
+        <p class="hero-sub">Choose a movement, follow its cues, and use the pacer to count reps and time rests.</p>
         <div class="hero-actions"> 
           <a href="#home-workouts" class="btn btn-primary">No equipment, start now</a> 
           <a href="#gym-workouts" class="btn btn-ghost">Browse the gym floor</a> 
@@ -53,7 +54,7 @@
       <div class="hero-demo"> 
         <div class="hero-demo-frame"> 
           <video class="hero-demo-video" src="exercise_video/Excercisedemo.mp4" autoplay muted loop playsinline></video> 
-          <span class="hero-demo-tag">Exercise -reference motion</span> 
+          <span class="hero-demo-tag">Exercise reference motion</span>
         </div> 
       </div> 
     </div> 
@@ -63,7 +64,7 @@
   <section class="section" id="home-workouts"> 
     <div class="section-head"> 
       <h2>Home workouts</h2> 
-      <p>No bench, no rack, no problem. Bodyweight and cardio movements you can run through in the space of a yoga mat.</p> 
+      <p>Bodyweight and cardio movements that need little space.</p>
     </div> 
     <div class="card-grid" id="homeGrid"></div> 
   </section> 
@@ -72,7 +73,7 @@
   <section class="section section-alt" id="gym-workouts"> 
     <div class="section-head"> 
       <h2>Gym workouts</h2> 
-      <p>Full-body coverage, sorted by the muscle you're training today.</p> 
+      <p>Browse exercises by muscle group.</p>
     </div> 
     <div class="chip-row" id="muscleChips" role="tablist" aria-label="Muscle group"></div> 
     <div class="card-grid" id="gymGrid"></div> 
@@ -82,7 +83,7 @@
   <section class="section" id="yoga"> 
     <div class="section-head"> 
       <h2>Yoga</h2> 
-      <p>Slow, held movements for mobility and breath. Timed holds, no rep counting.</p> 
+      <p>Timed mobility and breathing holds; no rep counting.</p>
     </div> 
     <div class="card-grid" id="yogaGrid"></div> 
   </section> 
@@ -90,7 +91,7 @@
 </main> 
  
 <footer class="site-footer"> 
-  <p>NextGen NutriFit — train with intent.</p> 
+  <p>NextGen NutriFit</p>
 </footer> 
  
 <!-- WORKOUT PLAYER MODAL --> 

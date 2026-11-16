@@ -108,6 +108,14 @@ async function seedInitialData() {
       console.log(`🌱 Seeded ${seedFoods.length} food items into the database.`);
     }
 
+    // Remove only the two food records explicitly retired from the Food Diary.
+    const removedFoods = await Food.deleteMany({
+      name: { $regex: /^(?:dark chocolate(?:\s+70-85%)?|olive oil)$/i }
+    });
+    if (removedFoods.deletedCount) {
+      console.log(`Removed ${removedFoods.deletedCount} retired food item(s) from the database.`);
+    }
+
     const exerciseCount = await Exercise.countDocuments();
     if (exerciseCount === 0) {
       const seedExercises = require('./data/exercises-seed.json').map(e => ({
