@@ -17,6 +17,12 @@ async function sendSystemMail(to, subject, htmlContent) {
   const apiKey = process.env.BREVO_API;
   const senderEmail = process.env.BREVO_FROM_EMAIL;
   const senderName = process.env.BREVO_FROM_NAME || 'NextGen NutriFit';
+  if (typeof apiKey === 'string' && /^xsmtpsib-/i.test(apiKey.trim())) {
+    throw createBrevoError(
+      'A Brevo SMTP key was supplied where a Brevo API key is required. Use an API key from Brevo SMTP & API settings.',
+      'BREVO_SMTP_KEY_USED_AS_API_KEY'
+    );
+  }
   if (!apiKey || !senderEmail) {
     throw createBrevoError(
       'Brevo configuration is missing. Set BREVO_API and BREVO_FROM_EMAIL.',

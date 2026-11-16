@@ -78,6 +78,14 @@ test('reports missing API key or sender configuration', async () => {
   );
 });
 
+test('rejects a Brevo SMTP key when the REST API key is required', async () => {
+  process.env.BREVO_API = 'xsmtpsib-test-only';
+  await assert.rejects(
+    sendSystemMail('recipient@example.test', 'OTP', '<p>Code</p>'),
+    error => error.code === 'BREVO_SMTP_KEY_USED_AS_API_KEY'
+  );
+});
+
 test('handles network and timeout failures without claiming acceptance', async () => {
   global.fetch = async () => { throw new TypeError('network unavailable'); };
   await assert.rejects(
