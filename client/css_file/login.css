@@ -100,7 +100,7 @@ input::placeholder{
     color:white;
 }
 
-.buttons:hover{
+.buttons{
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -108,10 +108,8 @@ input::placeholder{
     gap:12px;
     margin-top:20px;
     
-
 }
-
-.buttons:hover {
+.submit:hover{
     transform: scale(1.05);
     transition: 0.3s ease;
 }
@@ -124,6 +122,11 @@ input::placeholder{
     border-radius:25px;
     white-space:nowrap;
     transform:scale(1.05);
+}
+
+.forget:hover{
+    transform: scale(1.05);
+    transition: 0.3s ease;
 }
 
 button{
