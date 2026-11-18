@@ -540,6 +540,7 @@ button{cursor:pointer}
 
 .search-box {
     width: min(360px, 100%);
+    min-width: 0;
     display: flex;
     align-items: center;
     background: #172619;
@@ -554,13 +555,20 @@ button{cursor:pointer}
 }
 
 .search-box input {
+    flex: 1 1 0%;
     width: 100%;
+    min-width: 0;
     border: 0;
     outline: 0;
     background: none;
     color: #fff;
     padding: 13px 8px;
     font-size: 13px;
+    touch-action: manipulation;
+}
+
+.search-box:focus-within {
+    border-color: var(--accent);
 }
 
 .search-box input::placeholder {

@@ -30,7 +30,8 @@
             <label><input type="radio" name="gender" value="Female"> Female</label>
         </div>
 
-        <input type="date" name="dob" required>
+        <input type="date" name="dob" aria-describedby="dobHint" required>
+        <small class="dob-hint" id="dobHint">Select your date of birth using the calendar.</small>
         <input type="email" name="email" placeholder="Email Address (Login ID)" required>
         
         <!-- Main Password Container Block Wrapper -->

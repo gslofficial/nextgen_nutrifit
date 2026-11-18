@@ -76,17 +76,21 @@ const clearSearch = document.getElementById("clearSearch");
 const calcIcon = document.getElementById("calcIcon");
 
 let activeFilter = "All";
+let lastRenderedSearch = "";
 
 const fmt = n => Number(n).toFixed(n < 10 && n % 1 !== 0 ? 1 : 0);
 
 function renderFoods(){
-  const term = searchInput.value.trim().toLowerCase();
+  const term = String(searchInput.value || "").trim().toLocaleLowerCase();
+  lastRenderedSearch = searchInput.value;
   const filtered = foods.filter(f => {
-    const matchesText = !term || `${f.name} ${f.type} ${f.group}`.toLowerCase().includes(term);
-    const matchesFilter = activeFilter === "All" ||
-      f.type === activeFilter ||
-      f.group === activeFilter ||
-      (activeFilter === "Mixed" && true);
+    const searchableText = `${f.name || ""} ${f.type || ""} ${f.group || ""}`.toLocaleLowerCase();
+    const matchesText = !term || searchableText.includes(term);
+    const normalizedFilter = activeFilter.toLocaleLowerCase();
+    const matchesFilter = normalizedFilter === "all" ||
+      normalizedFilter === "mixed" ||
+      String(f.type || "").toLocaleLowerCase() === normalizedFilter ||
+      String(f.group || "").toLocaleLowerCase() === normalizedFilter;
     return matchesText && matchesFilter;
   });
   foodGrid.innerHTML = filtered.map((f, index) => `
@@ -147,7 +151,12 @@ filterRow.addEventListener("click", e => {
   renderFoods();
 });
 
-searchInput.addEventListener("input", renderFoods);
+function handleSearchChange(){
+  if (searchInput.value !== lastRenderedSearch) renderFoods();
+}
+
+searchInput.addEventListener("input", handleSearchChange);
+searchInput.addEventListener("search", handleSearchChange);
 
 clearSearch.addEventListener("click", () => {
   searchInput.value = "";

@@ -7,7 +7,7 @@
 
 body{
     min-height:100vh;
-    background-image:url(https://wallpapercave.com/wp/wp5559316.jpg);
+    background-image: url('../photo/welcome.jpg');
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
