@@ -2,7 +2,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-     font-family:"DM Sans",Arial,sans-serif;
+     font-family:'Playfair Display', serif;
 }
 
 body{
@@ -23,18 +23,7 @@ body{
     left:20px;
 }
 
-/* .logo{
-    animation: slide 2s infinite alternate;
-}
 
-@keyframes slide{
-    from{
-        transform:translateX(0);
-    }
-    to{
-        transform:translateX(100px);
-    }
-} */
 
 .logo{
     text-align:left;
@@ -42,10 +31,10 @@ body{
 
 .logo img{
     width:100px;
-    margin-left:60px; /* move right */
+    margin-left:100px; /* move right */
 }
 
-.logo img{
+/* .logo img{
     width:111px;
     animation:float 3s ease-in-out infinite;
 }
@@ -60,7 +49,7 @@ body{
     100%{
         transform:translateY(0);
     }
-}
+} */
 
 .logo h1{
     color:white;

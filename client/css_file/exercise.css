@@ -112,7 +112,7 @@ p{color:var(--muted);}
 
 @media (max-width:720px){
   .header-inner{height:65px; gap:12px;}
-  .logo{font-size:clamp(19px,5vw,23px);}
+  .logo{font-size:25px;}
   .menu-toggle{display:inline-flex; margin-left:auto; flex:none;}
   .main-nav{
     display:none;
